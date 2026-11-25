@@ -1,0 +1,92 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  background: rgba(9, 13, 22, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ── Brand ──────────────────────────────────────────────── */
+.app-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.app-header__radar-icon {
+  color: #38BDF8;
+}
+
+.app-header__logo {
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #F3F4F6;
+}
+
+/* ── Nav ────────────────────────────────────────────────── */
+.app-header__nav {
+  display: none;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (min-width: 768px) {
+  .app-header__nav {
+    display: flex;
+  }
+}
+
+.app-header__nav-link {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9CA3AF;
+  text-decoration: none;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.app-header__nav-link:hover {
+  color: #F9FAFB;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.app-header__nav-link--active {
+  color: #38BDF8;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+
+.app-header__nav-link--active:hover {
+  background: transparent;
+}
+
+/* ── Corpus size ────────────────────────────────────────────────────────────────────────────
+   Replaces the avatar, which showed a stock photo of a nonexistent user. The corpus size is
+   information an engineer can actually use: it frames what "nothing matches" means. */
+.app-header__corpus {
+  display: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: #9CA3AF;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .app-header__corpus {
+    display: inline;
+  }
+}

@@ -1,0 +1,126 @@
+.search-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: #111726;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-bar:focus-within {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.12);
+}
+
+.search-bar__icon {
+  flex-shrink: 0;
+  margin-left: 16px;
+  color: #6B7280;
+  transition: color 0.2s ease;
+}
+
+.search-bar:focus-within .search-bar__icon {
+  color: #38BDF8;
+}
+
+.search-bar__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 14px 16px 14px 14px;
+  font-size: 14px;
+  color: #F9FAFB;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.search-bar__input::placeholder {
+  color: #6B7280;
+}
+
+.search-bar__input::-webkit-search-cancel-button,
+.search-bar__input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.search-bar__input:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.search-bar__right-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+.search-bar__clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: transparent;
+  border: none;
+  color: #9CA3AF;
+  padding: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.search-bar__clear:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #F9FAFB;
+}
+
+.search-bar__clear:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Replaces the decorative CTRL+K hint, which was never bound to anything. */
+.search-bar__submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(56, 189, 248, 0.14);
+  color: #38BDF8;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.search-bar__submit:hover:not(:disabled) {
+  background: rgba(56, 189, 248, 0.24);
+}
+
+.search-bar__submit:disabled {
+  opacity: 0.5;
+  cursor: progress;
+}
+
+.search-bar__submit:focus-visible {
+  outline: 2px solid #38BDF8;
+  outline-offset: 2px;
+}
+
+.search-bar__submit-text {
+  display: none;
+}
+
+@media (min-width: 640px) {
+  .search-bar__submit-text {
+    display: inline;
+  }
+}

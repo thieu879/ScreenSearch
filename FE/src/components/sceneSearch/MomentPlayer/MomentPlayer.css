@@ -1,0 +1,104 @@
+/* The moment player and its overlay.
+ *
+ * `--stage` is `position: relative` and the boxes are positioned in percentages inside it, so the
+ * overlay tracks the video at any rendered size. The video keeps `display: block` for the same
+ * reason a bare `<video>` usually does not: the inline baseline gap would offset every box by a few
+ * pixels against the frame it is meant to sit on.
+ */
+
+.moment-player {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2, 0.5rem);
+}
+
+.moment-player__label {
+  margin: 0;
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-secondary, #64748b);
+}
+
+.moment-player__stage {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-md, 0.5rem);
+  overflow: hidden;
+  background: #000;
+  line-height: 0;
+}
+
+.moment-player__video {
+  display: block;
+  width: 100%;
+}
+
+.moment-player__box {
+  position: absolute;
+  border: 2px solid var(--color-accent, #22c55e);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.moment-player__tag {
+  position: absolute;
+  top: -1.35rem;
+  left: -2px;
+  padding: 0.05rem 0.35rem;
+  border-radius: 3px;
+  background: var(--color-accent, #22c55e);
+  color: #06210f;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.moment-player__distance,
+.moment-player__events {
+  margin: 0;
+  font-size: var(--text-sm, 0.875rem);
+  line-height: 1.5;
+  color: var(--color-text-secondary, #64748b);
+}
+
+/* #94a3b8 on white is 2.56:1, well under AA's 4.5:1 for body text — and this is not decorative
+   text. It is the sentence saying the number is a measured distance and NOT a "cut-in" or
+   "overtake" label, i.e. the one that stops a viewer reading a claim the system does not make.
+   There is no lighter grey that still passes on white (#64748b is 4.76:1 and the scale runs out),
+   so the caveat takes the same colour as the reading it qualifies and stays distinguished by being
+   inline after the bolded figure rather than by being dimmer. Dark mode has the room and keeps the
+   quieter tone below. */
+.moment-player__caveat {
+  color: var(--color-text-secondary, #64748b);
+}
+
+/* The controls sit over the last row of the frame, so a box near the bottom edge would be under
+ * them. Lifting the overlay is wrong — it would move the box off the vehicle — so the video is
+ * given the room instead, by leaving the controls visible on hover only where the browser allows. */
+@media (max-width: 40rem) {
+  .moment-player__tag {
+    font-size: 0.62rem;
+  }
+}
+
+/* Dark mode. The card behind this went dark without these and the text stayed put, which is the
+ * half of the fix that is easy to forget: #64748b on #111726 is about 3.5:1, under the 4.5:1 AA
+ * wants for body text, so the labels would have been technically visible and practically not.
+ *
+ * The light scale runs secondary #64748b -> tertiary #94a3b8, dimmer as it goes. Dark has to invert
+ * that rather than reuse it: secondary becomes #cbd5e1 (12.04:1) and the caveat #94a3b8 (6.97:1),
+ * so the caveat stays quieter than the reading it qualifies while both clear AA.
+ *
+ * `__stage` and `__tag` are deliberately untouched. The stage is #000 behind a video in both themes,
+ * and the tag is dark text on the accent — it is drawn over the footage, not over the page, so the
+ * theme does not reach it. */
+.dark .moment-player__label,
+.dark .moment-player__distance,
+.dark .moment-player__events {
+  color: #cbd5e1;
+}
+
+.dark .moment-player__caveat {
+  color: #94a3b8;
+}

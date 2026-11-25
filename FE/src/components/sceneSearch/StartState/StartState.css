@@ -1,0 +1,54 @@
+/* Tokens and fallbacks follow FilterInfoBar and SearchHero: `--color-on-surface` for primary text,
+   `--color-text-secondary` for supporting text, with light-theme fallback values. An earlier version
+   of this file guessed dark-theme fallbacks and the heading rendered near-white on white. */
+
+.start-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 64px 24px 72px;
+}
+
+.start-state__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 18px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border-subtle, rgb(0 0 0 / 16%));
+    background-color: var(--color-surface-container, #e2e8f0);
+    color: var(--color-primary, #1d4ed8);
+}
+
+.start-state__heading {
+    margin: 0 0 6px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-on-surface, #0f172a);
+}
+
+.start-state__message {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--color-text-secondary, #334155);
+    max-width: 46ch;
+}
+
+/* Dark Mode Overrides for StartState */
+.dark .start-state__icon {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: #2dd4bf;
+}
+
+.dark .start-state__heading {
+    color: #f8fafc;
+}
+
+.dark .start-state__message {
+    color: #cbd5e1;
+}

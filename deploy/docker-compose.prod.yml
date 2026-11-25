@@ -1,0 +1,104 @@
+# Production stack for the Oracle Cloud Always Free VM.
+#
+# Two containers: the API, and Caddy in front of it terminating TLS. Caddy is not decoration — a
+# frontend served over HTTPS (Vercel) cannot call an HTTP backend, because browsers block mixed
+# content. Without a certificate the deployed UI fails with an error that looks like the backend
+# being down. Caddy obtains and renews a Let's Encrypt certificate on its own, given a hostname.
+#
+#   docker compose -f deploy/docker-compose.prod.yml up -d --build
+#
+# Run from the repository root. Requires `.env` (never committed) and DOMAIN set — see docs/deploy.md.
+
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      args:
+        # Set it on the promote so `/health` can name the build. Falls through to `unknown`, which
+        # is deliberately ugly: a promote that skipped this step should be visible in the smoke
+        # test rather than indistinguishable from a good one.
+        #
+        #     RELEASE=$(git describe --tags) docker compose -f deploy/docker-compose.prod.yml up -d --build
+        RELEASE: ${RELEASE:-unknown}
+        # Baked into the frontend bundle at build time — see the frontend stage in the Dockerfile.
+        # Resolved from `../.env` because every deploy command passes `--env-file ../.env`; without
+        # that flag compose reads the *current directory's* .env and this silently comes back empty,
+        # which is the same class of bug as DOMAIN not being picked up. Empty is a valid value: the
+        # frontend then hides the Google button instead of showing one that cannot work.
+        VITE_GOOGLE_CLIENT_ID: ${VITE_GOOGLE_CLIENT_ID:-}
+    env_file:
+      - ../.env
+    environment:
+      APP_ENV: production
+      LOG_LEVEL: INFO
+      # Away from the default `data/reviews.db` and onto the volume below. Without this the review
+      # database is written into the container's own filesystem, and `up -d --build` — the command
+      # every redeploy in docs/deploy.md ends with — throws it away with the old container.
+      #
+      # The default in src/config.py is deliberately NOT changed to match. It is the path the local
+      # database already sits at, and moving it would strand the judgments collected there rather
+      # than protect them. Only the deployment overrides.
+      REVIEW_DB: data/reviews/reviews.db
+      # Set here rather than left to `.env`, because it is a fact about *this* topology and not a
+      # preference: Caddy is the sole ingress and the API publishes no port, so X-Forwarded-For is
+      # written by a proxy we control and the last entry in it is the real client. Without this the
+      # rate limiter sees every request coming from Caddy's container address and the first tester
+      # to search ten times locks out the room. It would be actively wrong anywhere the API is
+      # reachable directly — `make run`, a tunnel — where the header is whatever the client typed.
+      TRUST_PROXY_HEADERS: "true"
+    # No published ports: only Caddy may reach the API, so the plain-HTTP port is never exposed to
+    # the internet even if the VM's firewall is later loosened.
+    expose:
+      - "8000"
+    volumes:
+      # The review buffer, and only the review buffer. Mounting the whole of `data/` here would
+      # hide the search index and the 6,858 thumbnails the image fetched at build time, and the
+      # service would start cleanly and answer nothing.
+      #
+      # src/services/reviews.py calls the database a working buffer that a reviewer exports when
+      # done, and for a supervised session that is true. It stops being true for a deployment
+      # testers reach on their own: nobody is watching to export, and a restart during the feedback
+      # window loses every verdict collected up to it. A named volume costs nothing and removes the
+      # question.
+      - reviews:/app/data/reviews
+      # Where `scripts/ops/backup_reviews.py` writes, and a **host bind** rather than a second named
+      # volume on purpose. The thing a backup has to survive is losing the volume above — `down -v`,
+      # a mistyped prune, a disk that has to be rebuilt — and a named volume shares exactly that
+      # fate. A host path outlives every compose command.
+      #
+      # Docker creates a missing bind source root-owned, and the container runs as uid 1000, so the
+      # first backup fails with EACCES. Create it before the first `up`:
+      #     mkdir -p deploy/backups && sudo chown 1000:1000 deploy/backups
+      # docs/deploy.md § Backing up the verdicts has the full setup, including getting a copy off
+      # the box — which is the half a bind mount still does not give you.
+      - ${REVIEW_BACKUP_DIR:-./backups}:/app/data/backups
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c",
+             "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 90s
+      retries: 3
+
+  caddy:
+    image: caddy:2-alpine
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      # Set in .env. Caddy needs a real hostname to get a certificate — a bare IP cannot have one.
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data      # certificates. Losing this volume means re-issuing on every restart,
+      - caddy_config:/config  # which Let's Encrypt rate-limits.
+    restart: unless-stopped
+
+volumes:
+  reviews:  # human verdicts — the only state here that cannot be rebuilt from the repo and the Hub
+  caddy_data:
+  caddy_config:

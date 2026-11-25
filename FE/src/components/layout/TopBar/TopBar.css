@@ -1,0 +1,544 @@
+/* ============================================================
+   SSP Layout Header CSS (Admin TopBar + User Horizontal Header)
+   ============================================================ */
+
+/* ── Original Admin TopBar Style (for /admin pages) ─────── */
+.ssp-top-bar {
+  height: 64px;
+  padding: 0 28px;
+  background-color: var(--color-surface, #ffffff);
+  border-bottom: 1px solid var(--color-border-subtle, rgba(0, 0, 0, 0.08));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.ssp-top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ssp-btn-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--color-on-surface, #111827);
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  transition: background-color 0.2s ease;
+}
+
+.ssp-btn-menu-toggle:hover {
+  background-color: var(--color-surface-container, #f3f4f6);
+}
+
+.ssp-page-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-on-surface, #111827);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ssp-role-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border: 1px solid #7dd3fc;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.ssp-top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ssp-icon-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ── User Horizontal Fixed Header Navigation (/search, /history, /export) ── */
+.ssp-header-root {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 76px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.ssp-header-container {
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Brand Logo Section */
+.ssp-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.ssp-brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background-color: #168c89;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 8px;
+  letter-spacing: 0.5px;
+}
+
+.ssp-brand-text-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.ssp-brand-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #18324a;
+  letter-spacing: 0.6px;
+  line-height: 1.2;
+}
+
+.ssp-brand-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  color: #5a7184;
+  line-height: 1.2;
+}
+
+/* Center Navigation Bar */
+.ssp-header-nav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 4px 0;
+}
+
+.ssp-header-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.ssp-nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: none;
+  background-color: transparent;
+  color: #5a7184;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+
+.ssp-nav-tab:hover {
+  background-color: #f4f7f8;
+  color: #18324a;
+}
+
+.ssp-nav-tab.active {
+  background-color: #dceff2;
+  color: #168c89;
+  font-weight: 650;
+}
+
+/* Right Actions & Profile Wrapper */
+.ssp-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.ssp-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ssp-btn-icon {
+  background: transparent;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #5a7184;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.ssp-btn-icon:hover {
+  background-color: #f4f7f8;
+  color: #18324a;
+}
+
+/* Language Toggle Button */
+.ssp-lang-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  background-color: #dceff2;
+  border: 1px solid #a7d7dc;
+  border-radius: 8px;
+  color: #168c89;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.ssp-lang-toggle-btn:hover {
+  background-color: #168c89;
+  color: #ffffff;
+  border-color: #168c89;
+}
+
+/* ── Auth Buttons for Unauthenticated Users ── */
+.ssp-auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ssp-btn-register {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: transparent;
+  border: 1px solid #168c89;
+  color: #168c89;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.ssp-btn-register:hover {
+  background-color: #dceff2;
+  color: #127270;
+  border-color: #127270;
+}
+
+.ssp-btn-login {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background-color: #168c89;
+  border: 1px solid #168c89;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  box-shadow: 0 2px 4px rgba(22, 140, 137, 0.18);
+  white-space: nowrap;
+}
+
+.ssp-btn-login:hover {
+  background-color: #127270;
+  border-color: #127270;
+  box-shadow: 0 4px 8px rgba(22, 140, 137, 0.28);
+}
+
+/* ── User Profile Button & Dropdown Menu ── */
+.ssp-user-profile-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ssp-user-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  background: transparent;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.ssp-user-profile-btn:hover {
+  background-color: #f4f7f8;
+}
+
+.ssp-user-info {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+}
+
+.ssp-user-name {
+  font-size: 13px;
+  font-weight: 650;
+  color: #18324a;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.ssp-user-role {
+  font-size: 10px;
+  font-weight: 600;
+  color: #168c89;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+}
+
+.ssp-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid #dceff2;
+}
+
+.ssp-avatar-fallback {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #168c89;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dropdown Menu under Avatar */
+.ssp-user-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 160px;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(24, 50, 74, 0.12);
+  padding: 6px;
+  z-index: 120;
+  animation: ssp-fade-in 0.15s ease;
+}
+
+@keyframes ssp-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ssp-dropdown-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: #18324a;
+  font-size: 13.5px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.ssp-dropdown-item:hover {
+  background-color: #f4f7f8;
+  color: #168c89;
+}
+
+.ssp-dropdown-item.danger {
+  color: #b91c1c;
+}
+
+.ssp-dropdown-item.danger:hover {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.ssp-dropdown-divider {
+  height: 1px;
+  background-color: #f0f4f8;
+  margin: 4px 0;
+}
+
+/* Responsive */
+@media (max-width: 1023px) {
+  .ssp-top-bar {
+    padding: 0 16px;
+  }
+  .ssp-btn-menu-toggle {
+    display: flex;
+  }
+  .ssp-header-container {
+    padding: 0 16px;
+  }
+  .ssp-brand-subtitle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .ssp-header-root {
+    height: auto;
+    min-height: 64px;
+  }
+  .ssp-header-container {
+    flex-wrap: wrap;
+    padding: 10px 14px;
+    gap: 10px;
+  }
+  .ssp-header-nav {
+    order: 3;
+    width: 100%;
+    border-top: 1px solid #f0f4f8;
+    padding-top: 8px;
+  }
+  .ssp-user-info {
+    display: none;
+  }
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR TOPBAR & APP HEADERS (.dark)
+   ============================================================ */
+.dark .ssp-top-bar,
+.dark .ssp-header-root {
+  background-color: #0b0f19;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.dark .ssp-page-title,
+.dark .ssp-brand-title {
+  color: #f8fafc;
+}
+
+.dark .ssp-brand-subtitle {
+  color: #94a3b8;
+}
+
+.dark .ssp-nav-tab {
+  color: #cbd5e1;
+}
+
+.dark .ssp-nav-tab:hover {
+  background-color: rgba(56, 189, 248, 0.12);
+  color: #38bdf8;
+}
+
+.dark .ssp-nav-tab.active {
+  background-color: rgba(22, 140, 137, 0.25);
+  color: #2dd4bf;
+  border-bottom-color: #2dd4bf;
+}
+
+.dark .ssp-user-name {
+  color: #f8fafc;
+}
+
+.dark .ssp-user-role {
+  color: #2dd4bf;
+}
+
+.dark .ssp-avatar {
+  border-color: rgba(45, 212, 191, 0.4);
+}
+
+.dark .ssp-user-profile-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .ssp-user-profile-btn:hover .ssp-user-name {
+  color: #ffffff;
+}
+
+.dark .ssp-user-profile-btn:hover .ssp-user-role {
+  color: #2dd4bf;
+}
+
+.dark .ssp-lang-toggle-btn,
+.dark .ssp-btn-icon {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #38bdf8;
+}
+
+.dark .ssp-user-dropdown-menu {
+  background-color: #111726;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+.dark .ssp-dropdown-item {
+  color: #cbd5e1;
+}
+
+.dark .ssp-dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.dark .ssp-dropdown-divider {
+  background-color: rgba(255, 255, 255, 0.08);
+}

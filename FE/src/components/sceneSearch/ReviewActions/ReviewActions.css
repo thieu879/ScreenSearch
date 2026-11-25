@@ -1,0 +1,113 @@
+/* ============================================================
+   SSP Review Actions Component — Data Workspace Styling
+   ============================================================ */
+
+.review-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.review-actions__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #5a7184;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(24, 50, 74, 0.04);
+  transition: all 0.18s ease;
+}
+
+.review-actions__btn:hover {
+  background-color: #dceff2;
+  color: #168c89;
+  border-color: #a7d7dc;
+}
+
+/* Hover & Active states per action type */
+.review-actions__btn--approved:hover,
+.review-actions__btn--active.review-actions__btn--approved {
+  background-color: #e6f4f1;
+  border-color: #10b981;
+  color: #047857;
+}
+
+.review-actions__btn--rejected:hover,
+.review-actions__btn--active.review-actions__btn--rejected {
+  background-color: #fee2e2;
+  border-color: #ef4444;
+  color: #b91c1c;
+}
+
+.review-actions__btn--bookmarked:hover,
+.review-actions__btn--active.review-actions__btn--bookmarked {
+  background-color: #fef3c7;
+  border-color: #f59e0b;
+  color: #b45309;
+}
+
+.review-actions__btn:focus-visible {
+  outline: 2px solid #168c89;
+  outline-offset: 2px;
+}
+
+/* Card view label hiding */
+.review-actions--card .review-actions__label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.review-actions--detail .review-actions__btn {
+  padding: 8px 14px;
+  font-size: 13px;
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR REVIEW ACTIONS (.dark)
+   ============================================================ */
+.dark .review-actions__btn {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+}
+
+.dark .review-actions__btn:hover {
+  background-color: rgba(45, 212, 191, 0.18);
+  color: #2dd4bf;
+  border-color: #2dd4bf;
+}
+
+.dark .review-actions__btn--approved:hover,
+.dark .review-actions__btn--active.review-actions__btn--approved {
+  background-color: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #34d399;
+}
+
+.dark .review-actions__btn--rejected:hover,
+.dark .review-actions__btn--active.review-actions__btn--rejected {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: #ef4444;
+  color: #f87171;
+}
+
+.dark .review-actions__btn--bookmarked:hover,
+.dark .review-actions__btn--active.review-actions__btn--bookmarked {
+  background-color: rgba(245, 158, 11, 0.2);
+  border-color: #f59e0b;
+  color: #fbbf24;
+}

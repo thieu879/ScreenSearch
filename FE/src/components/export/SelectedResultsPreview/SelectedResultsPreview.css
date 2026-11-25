@@ -1,0 +1,349 @@
+/* ── Selected Results Preview Section ────────────────────────────── */
+.ssp-selected-card {
+  padding: 24px;
+}
+
+.ssp-selected-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 16px;
+}
+
+.ssp-selected-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.ssp-selected-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.ssp-selected-scope-tabs {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  box-sizing: border-box;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.ssp-selected-scope-tab {
+  height: 100%;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  font-size: 12.5px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.ssp-selected-scope-tab:hover {
+  color: #1e293b;
+}
+
+.ssp-selected-scope-tab.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+
+.ssp-selected-count-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 0 12px;
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.ssp-selected-badge-icon {
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.ssp-selected-notice,
+.ssp-selected-empty {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 24px;
+  background: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* A failed load is not an empty list, so it does not look like one: solid rather than dashed, and
+   red rather than grey. Matching `.ssp-export-notice`'s palette on the same page. */
+.ssp-selected-notice--error {
+  background: #fef2f2;
+  border: 1px solid #ef4444;
+  color: #b91c1c;
+}
+
+/* ── Grid row for preview tiles ─────────────────────────────────── */
+.ssp-selected-grid-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ssp-preview-tile {
+  position: relative;
+  width: 108px;
+  height: 96px;
+  border-radius: 14px;
+  overflow: hidden;
+  background-color: #f1f5f9;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.ssp-preview-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.12);
+  border-color: #168c89;
+}
+
+.ssp-preview-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Status badge at top-right corner */
+.ssp-preview-check-overlay {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ssp-preview-check-badge,
+.ssp-preview-status-badge {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #2563eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.ssp-preview-tile:hover .ssp-preview-status-badge,
+.ssp-preview-tile:hover .ssp-preview-check-badge {
+  transform: scale(1.08);
+}
+
+.ssp-preview-status-badge--approved {
+  color: #10b981;
+  background: #ffffff;
+}
+
+.ssp-preview-status-badge--rejected {
+  color: #ef4444;
+  background: #ffffff;
+}
+
+.ssp-preview-status-badge--bookmarked {
+  color: #f59e0b;
+  background: #ffffff;
+}
+
+/* ── "+N ITEMS" Dashed Card ──────────────────────────────────────── */
+.ssp-preview-tile-more {
+  border: 2px dashed #94a3b8;
+  background-color: #f8fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  gap: 2px;
+}
+
+.ssp-preview-tile-more:hover {
+  background-color: #f1f5f9;
+  border-color: #168c89;
+}
+
+.ssp-more-number {
+  font-size: 24px;
+  font-weight: 750;
+  color: #334155;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.ssp-more-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 0.08em;
+}
+
+/* ── Dark Mode Support ──────────────────────────────────────────── */
+.dark .ssp-selected-count-badge {
+  background-color: rgba(30, 58, 138, 0.3);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.3);
+}
+
+.dark .ssp-selected-notice,
+.dark .ssp-selected-empty {
+  background: #161e2e;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+}
+
+.dark .ssp-selected-notice--error {
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+}
+
+.dark .ssp-preview-tile {
+  background-color: #1e293b;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .ssp-preview-tile-more {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.dark .ssp-preview-tile-more:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: #168c89;
+}
+
+.dark .ssp-more-number {
+  color: #f1f5f9;
+}
+
+.dark .ssp-more-label {
+  color: #64748b;
+}
+
+.dark .ssp-selected-scope-tabs {
+  background: #1e293b;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .ssp-selected-scope-tab {
+  color: #94a3b8;
+}
+
+.dark .ssp-selected-scope-tab:hover {
+  color: #f1f5f9;
+}
+
+.dark .ssp-selected-scope-tab.active {
+  background: #334155;
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.dark .ssp-preview-check-badge,
+.dark .ssp-preview-status-badge {
+  background: #1e293b;
+  color: #3b82f6;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.dark .ssp-preview-status-badge--approved {
+  color: #34d399;
+  background: #1e293b;
+}
+
+.dark .ssp-preview-status-badge--rejected {
+  color: #f87171;
+  background: #1e293b;
+}
+
+.dark .ssp-preview-status-badge--bookmarked {
+  color: #fbbf24;
+  background: #1e293b;
+}
+
+/* The count badge is the way into the full list, so it has to look and behave like a control:
+   inheriting the badge's own colours, but focusable, and inert when there is nothing to open. */
+.ssp-selected-count-badge--action {
+  font: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.ssp-selected-count-badge--action:hover:not(:disabled) {
+  background-color: #dbeafe;
+  border-color: #93c5fd;
+  color: #1e40af;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.15);
+}
+
+.dark .ssp-selected-count-badge--action:hover:not(:disabled) {
+  background-color: rgba(30, 58, 138, 0.55);
+  border-color: rgba(96, 165, 250, 0.45);
+  color: #bfdbfe;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+}
+
+.ssp-selected-count-badge--action:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.ssp-selected-count-badge--action:disabled {
+  cursor: default;
+  opacity: 0.55;
+}
+
+@media (max-width: 768px) {
+  .ssp-selected-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .ssp-selected-header-actions {
+    width: 100%;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}

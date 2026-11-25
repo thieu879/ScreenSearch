@@ -1,0 +1,22 @@
+# Runs scenesearch-backup.service once a day.
+#
+# Daily rather than hourly because the loss window that matters is a session, not an hour: testers
+# arrive in scheduled sittings and the operator exports at the end of one. Fourteen retained
+# snapshots of a few hundred kilobytes each cover the whole feedback period.
+
+[Unit]
+Description=Daily SceneSearch review database backup
+
+[Timer]
+# 03:00-ish rather than `daily`, which means midnight — late enough that a snapshot never lands in
+# the middle of an evening session. Only one OnCalendar= line: systemd *accumulates* them rather
+# than overriding, so a second one would add a trigger instead of replacing the first.
+OnCalendar=*-*-* 03:00:00
+RandomizedDelaySec=300
+# Run the missed backup after a reboot or a stopped VM, instead of skipping to tomorrow. The credit
+# note in docs/deploy.md contemplates stopping the instance, which is exactly when a silently
+# skipped backup would go unnoticed.
+Persistent=true
+
+[Install]
+WantedBy=timers.target

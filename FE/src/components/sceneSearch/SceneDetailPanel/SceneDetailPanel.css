@@ -1,0 +1,164 @@
+/* ============================================================
+   SSP Scene Detail Panel — Data Workspace Styling
+   ============================================================ */
+
+.ssp-btn-download {
+  background-color: #168c89;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 650;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ssp-btn-download:hover {
+  background-color: #127471;
+  box-shadow: 0 4px 12px rgba(22, 140, 137, 0.25);
+}
+
+.ssp-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ssp-panel-hero-image {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  background-color: #f4f7f8;
+}
+
+.ssp-panel-hero-image img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  display: block;
+}
+
+.ssp-panel-img-fallback {
+  width: 100%;
+  aspect-ratio: 16/9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #8c9dae;
+  font-size: 13px;
+}
+
+.ssp-info-cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.ssp-info-box {
+  padding: 14px;
+  background-color: #f4f7f8;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.ssp-info-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #5a7184;
+  margin-bottom: 4px;
+}
+
+.ssp-info-value {
+  font-weight: 700;
+  font-size: 14px;
+  color: #18324a;
+  word-break: break-all;
+  margin: 0;
+}
+
+.ssp-similarity-progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ssp-similarity-text {
+  color: #168c89;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.ssp-progress-bar-bg {
+  flex: 1;
+  height: 8px;
+  background-color: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ssp-progress-bar-fill-teal {
+  height: 100%;
+  background-color: #168c89;
+  border-radius: 999px;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR SCENE DETAIL PANEL (.dark)
+   ============================================================ */
+.dark .ssp-info-box {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .ssp-info-label {
+  color: #94a3b8;
+}
+
+.dark .ssp-info-value {
+  color: #f8fafc;
+}
+
+.dark .ssp-panel-hero-image {
+  border-color: rgba(255, 255, 255, 0.1);
+  background-color: #0b0f19;
+}
+
+.dark .ssp-progress-bar-bg {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* The source deep link and its credit. CC BY: dropping `uploader` or `license` breaks the licence,
+   so they render together with the link rather than as an optional flourish. */
+.ssp-source-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+}
+
+.ssp-source-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-primary, #2563eb);
+  text-decoration: none;
+}
+
+.ssp-source-link a:hover {
+  text-decoration: underline;
+}
+
+.ssp-source-credit {
+  color: var(--color-text-secondary, #64748b);
+  font-size: 0.78rem;
+}

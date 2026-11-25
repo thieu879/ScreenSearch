@@ -1,0 +1,27 @@
+target-version = "py311"
+line-length = 120
+
+# The AI-usage logging hooks are excluded, not exempted on merit. They are graded infrastructure
+# supplied with the template, CLAUDE.md says not to modify them, and they are the only thing in
+# scripts/ that ruff currently objects to (2 x N806 in log_hook.py). Excluding them is what lets
+# the rest of scripts/ enter CI's lint scope at all — the alternative was leaving every script
+# unchecked to accommodate two variable names in a file nobody is allowed to touch.
+extend-exclude = [
+    "scripts/log_*.py",
+    "scripts/submit_log.py",
+    # Markdown. As of ruff 0.16 `format` reaches into fenced ```python blocks in .md files, and it
+    # caught `scripts/ingest/README.md` during the 2026-08-16 reformat — collapsing a deliberately
+    # aligned comment column in an illustrative schema. Those snippets are *documentation*: they are
+    # written to be read, not run, and some are intentionally partial. Reformatting them is a
+    # readability regression, and it would put a code gate in the path of every docs branch — the
+    # `Hieu` branch was editing that exact file at the time.
+    "*.md",
+]
+
+[lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+ignore = ["E501"]
+
+[format]
+quote-style = "double"
+indent-style = "space"

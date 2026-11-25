@@ -1,0 +1,94 @@
+/* ── Input Wrapper ──────────────────────────────────────── */
+.input-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-wrapper--full {
+  width: 100%;
+}
+
+/* ── Label ──────────────────────────────────────────────── */
+.input-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ssp-on-surface, var(--color-text-secondary, #334155));
+}
+
+/* ── Field ──────────────────────────────────────────────── */
+.input-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--ssp-surface, var(--color-bg-surface, #ffffff));
+  border: 1px solid var(--ssp-outline-variant, var(--color-border-secondary, #cbd5e1));
+  border-radius: 10px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-field:hover {
+  border-color: #94a3b8;
+}
+
+.input-field:focus-within {
+  border-color: var(--ssp-primary, #2563eb);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #ffffff;
+}
+
+.input-field--error {
+  border-color: var(--color-border-error, #ef4444);
+}
+
+.input-field--error:focus-within {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+/* ── Prefix Icon ────────────────────────────────────────── */
+.input-prefix-icon {
+  display: flex;
+  align-items: center;
+  padding-left: 12px;
+  color: var(--ssp-on-surface-variant, var(--color-fg-tertiary, #64748b));
+  flex-shrink: 0;
+}
+
+/* ── Native Input ───────────────────────────────────────── */
+.input-el {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--ssp-on-surface, var(--color-text-primary, #0f172a));
+  font-family: inherit;
+  min-width: 0;
+}
+
+.input-el::placeholder {
+  color: #94a3b8;
+}
+
+/* ── Suffix ─────────────────────────────────────────────── */
+.input-suffix {
+  display: flex;
+  align-items: center;
+  padding-right: 12px;
+  flex-shrink: 0;
+  color: var(--color-fg-tertiary);
+}
+
+/* ── Messages ───────────────────────────────────────────── */
+.input-error {
+  font-size: 12px;
+  color: var(--color-text-error-primary);
+  margin: 0;
+}
+
+.input-hint {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin: 0;
+}

@@ -1,0 +1,144 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data (never commit large data)
+data/*
+*.db
+*.sqlite3
+
+# ...except the artifacts the deployed service reads. Without them the Space starts and answers
+# nothing, so they are part of the program, not "data". Same argument experiments/m1/.gitignore
+# makes for captions and detections: regenerating these costs a 4 GB nuScenes download plus
+# CPU-hours, so shipping them is what makes the deploy reproducible by someone who has neither.
+# Produced by scripts/promote_artifacts.py — see experiments/M2_DESIGN.md §4.
+#
+# The two **vector matrices are excluded**: at 6,858 frames vectors.npy is 21 MB and
+# caption_vectors.npy 10.5 MB, and docs/guide/chapter-09.md allows no committed file over 10 MB.
+# float16 was measured as the obvious escape and rejected — it leaves vectors.npy at 10.5 MB, still
+# over, while reordering the top-10 for 28% of queries. They live in the HF dataset instead
+# (scripts/fetch_assets.py), which preserves the reproducibility argument above: a fetch is still
+# "someone who has neither". What stays committed is the four small files, 4.1 MB, so the repo
+# still records *what* the corpus is — only the matrices derived from it are fetched.
+!data/artifacts/
+data/artifacts/*
+!data/artifacts/*.jsonl
+!data/artifacts/*.json
+data/artifacts/*.npy
+
+# Thumbnails are NOT committed. They were, at 404 frames and 5.4 MB; at 6,858 they are 85 MB against
+# a repo of ~50 MB, and the corpus only grows from here.
+#
+# They live in the Hugging Face dataset `P-057-RisingStar/scenesearch-assets` (CC BY-NC-SA 4.0, per
+# nuScenes — see docs/reference/assets-dataset-card.md) and the Dockerfile pulls them at build time, so the
+# running service still serves them from local disk with nothing fetched per request.
+#
+# This is what M2_DESIGN §4 asked for all along: the coordinate is the fact, the pixels are derived.
+# `frames.jsonl` carries video_id + timestamp_s, so a thumbnail is a cache and a cache does not
+# belong in git. Repopulate locally with scripts/fetch_assets.py (or just `make run`).
+data/thumbs/
+
+# Logs
+logs/
+*.log
+
+# Test coverage
+htmlcov/
+.coverage
+coverage.xml
+
+# Docker
+docker-compose.override.yml
+
+# Node (frontend)
+node_modules/
+.next/
+out/
+.nuxt/
+
+# Build
+*.pyc
+*.pyo
+-
+.ai-log/archive/
+
+# The AI-log outbox, not a record. `scripts/submit_log.py` renames it, POSTs it, appends it to
+# `.ai-log/archive/YYYY-MM-DD.jsonl` and unlinks it, so on a machine that has just pushed it does not
+# exist and everywhere else it holds only what has yet to be sent. Committing it therefore ships a
+# queue: whoever pulls gets those entries dropped into their outbox and re-submits them on their next
+# push, duplicating them in the graded log. It was committed four times before this rule existed —
+# `47dde99` put 156 entries on `main` — and the archive above, which is the actual record, has always
+# been ignored. See `.claude/rules/ai-logging.md`.
+.ai-log/session.jsonl
+.ai-log/session.pending.*.jsonl
+
+# Feedback tracker exports (root only). These are snapshots of a live Google Sheet, so a committed
+# copy is stale the moment someone edits a row — and the `Người báo cáo` column is designed to hold
+# a person's name, which is not something a public repo should carry even on the days it is blank.
+#
+# Root-scoped on purpose: eval/ and experiments/ may legitimately commit a CSV of measurements, and
+# those are results, not a mirror of somebody else's document.
+#
+# **What belongs in git is the reading, not the export.** `eval/results/report.md` § 9 is where the
+# feedback findings go — counts, the queries that failed, what changed as a result. A tracker with
+# 16 rows is evidence; it is only graded if someone writes down what it says.
+/*.csv
+
+# Local custom notes (excluded from team repo)
+local_notes/
+
+# Temporary scratch scripts (excluded from team repo)
+scratch/
+
+# Local personal workspace (excluded from team repo)
+my_workspace/
+
+# Privacy detector weights. Third-party, separately licensed, and fetched per environment — the
+# research box needs them, the served image must never contain them. What makes a corpus
+# reproducible is the model identity recorded in provenance, not these bytes living in git.
+#
+# **Leading slash, and it is load-bearing.** Unanchored, `models/` matches a directory of that name
+# at *any* depth — including `src/models/`, the Pydantic schemas. Tracked files there were never at
+# risk (gitignore does not apply to what git already follows), but a **new** file under `src/models/`
+# was silently unstaged: `git add` warns once, `git commit` succeeds, CI passes, and the file is not
+# in the repo. Anchoring restricts it to the weights directory at the root, which is the only thing
+# the paragraph above is about. Verify with `git check-ignore -v src/models/anything.py`.
+/models/
+
+# Personal Claude Code settings — hooks/permissions that are mine, not the team's.
+# The team hooks live in .claude/settings.json, which stays tracked.
+.claude/settings.local.json
+
+# Personal Claude memory — auto-loaded beside the tracked CLAUDE.md, but mine alone
+# (portfolio/ICM orientation that teammates and non-Claude agents don't need).
+CLAUDE.local.md
+
+# Generated from eval/review/band_sample.csv by scripts/band/make_band_review_page.py, and it embeds
+# thumbnail paths into an unpublished redaction set. Regenerate it, never commit it.
+eval/review/band_sample.html

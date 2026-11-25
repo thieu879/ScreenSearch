@@ -1,0 +1,616 @@
+/* ============================================================
+   System Monitoring Styles — SSP Admin Platform
+   ============================================================ */
+
+:root {
+  --ssp-bg-background: #f8fafc;
+  --ssp-surface: #ffffff;
+  --ssp-surface-low: #f8fafc;
+  --ssp-surface-high: #f1f5f9;
+  
+  --ssp-primary: #168c89;
+  --ssp-primary-hover: #127471;
+  --ssp-primary-container: #168c89;
+  --ssp-on-primary: #ffffff;
+  --ssp-on-primary-container: #dceff2;
+
+  --ssp-secondary: #5a7184;
+  --ssp-secondary-container: #dceff2;
+
+  --ssp-tertiary: #10b981;
+  --ssp-tertiary-container: #047857;
+
+  --ssp-error: #ef4444;
+  --ssp-error-container: #fee2e2;
+
+  --ssp-on-surface: #18324a;
+  --ssp-on-surface-variant: #5a7184;
+  --ssp-outline-variant: #e2e8f0;
+}
+
+.ssp-monitor-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7f8;
+}
+
+.ssp-monitor-main-wrapper {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 1023px) {
+  .ssp-monitor-main-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+.ssp-monitor-canvas {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Actions Header Bar */
+.ssp-actions-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .ssp-actions-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.ssp-page-description {
+  font-size: 14px;
+  color: var(--ssp-on-surface-variant);
+}
+
+.ssp-btn-reload {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--ssp-surface);
+  border: 1px solid var(--ssp-outline-variant);
+  color: var(--ssp-on-surface);
+  padding: 10px 18px;
+  min-height: 44px;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ssp-btn-reload:hover {
+  background-color: var(--ssp-surface-high);
+  border-color: #cbd5e1;
+}
+
+.ssp-btn-reload-text {
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ssp-reload-icon.spinning {
+  animation: ssp-spin 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes ssp-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Bento Metrics Grid */
+.ssp-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.ssp-metric-card {
+  background-color: var(--ssp-surface);
+  border: 1px solid var(--ssp-outline-variant);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ssp-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  border-color: #cbd5e1;
+}
+
+.ssp-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.ssp-metric-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ssp-on-surface-variant);
+}
+
+.ssp-status-tag {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.ssp-status-tag.stable,
+.ssp-status-tag.optimized {
+  color: #047857;
+  background-color: #dcfce7;
+  border: 1px solid #a7f3d0;
+}
+
+.ssp-status-tag.normal {
+  color: #0369a1;
+  background-color: #e0f2fe;
+  border: 1px solid #bae6fd;
+}
+
+.ssp-status-tag.warning {
+  color: #b91c1c;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.ssp-metric-body {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ssp-metric-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ssp-on-surface);
+}
+
+.ssp-metric-change {
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ssp-metric-change.up-error { color: var(--ssp-error); }
+.ssp-metric-change.down-tertiary { color: var(--ssp-tertiary); }
+.ssp-metric-change.neutral { color: var(--ssp-on-surface-variant); }
+
+.ssp-chart-container {
+  position: relative;
+  width: 100%;
+  height: 56px;
+}
+
+.ssp-line-chart-path {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ssp-line-chart-path.stroke-primary { stroke: var(--ssp-primary); }
+.ssp-line-chart-path.stroke-tertiary { stroke: var(--ssp-tertiary); }
+.ssp-line-chart-path.stroke-secondary { stroke: var(--ssp-secondary); }
+.ssp-line-chart-path.stroke-error { stroke: var(--ssp-error); }
+
+/* Table Container Card */
+.ssp-table-card {
+  background-color: var(--ssp-surface);
+  border: 1px solid var(--ssp-outline-variant);
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+.ssp-table-card-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--ssp-outline-variant);
+  background-color: var(--ssp-surface-low);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ssp-table-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ssp-on-surface);
+}
+
+.ssp-live-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #047857;
+  background-color: #ecfdf5;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid #a7f3d0;
+}
+
+.ssp-dot-live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.ssp-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ssp-services-table {
+  width: 100%;
+  min-width: 600px;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.ssp-services-table thead tr {
+  background-color: var(--ssp-surface-low);
+  border-bottom: 1px solid var(--ssp-outline-variant);
+}
+
+.ssp-services-table th {
+  padding: 14px 24px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ssp-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+}
+
+.ssp-services-table tbody tr {
+  border-bottom: 1px solid #f1f5f9;
+  transition: background-color 0.15s ease;
+}
+
+.ssp-services-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.ssp-services-table td {
+  padding: 16px 24px;
+  font-size: 14px;
+}
+
+.ssp-service-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ssp-service-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.ssp-service-icon-box.qdrant { background-color: #eff6ff; color: var(--ssp-primary); border: 1px solid #bfdbfe; }
+.ssp-service-icon-box.fastapi { background-color: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+.ssp-service-icon-box.postgres { background-color: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+.ssp-service-icon-box.redis { background-color: #fef2f2; color: #ef4444; border: 1px solid #fecaca; }
+
+.ssp-service-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ssp-on-surface);
+}
+
+.ssp-service-sub {
+  font-size: 12px;
+  color: var(--ssp-on-surface-variant);
+}
+
+.ssp-status-active-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+}
+
+.ssp-table-footer {
+  padding: 14px 24px;
+  background-color: var(--ssp-surface-low);
+  border-top: 1px solid var(--ssp-outline-variant);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+  color: var(--ssp-on-surface-variant);
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ssp-footer-realtime-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ssp-pulse-dot {
+  width: 9px;
+  height: 9px;
+  background-color: #10b981;
+  border-radius: 50%;
+  animation: ssp-pulse-live 1.5s infinite;
+}
+
+@keyframes ssp-pulse-live {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.3); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* System Logs & Performance Section */
+.ssp-logs-perf-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.ssp-log-card {
+  background-color: var(--ssp-surface);
+  border: 1px solid var(--ssp-outline-variant);
+  border-radius: 14px;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.ssp-section-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ssp-on-surface);
+  margin-bottom: 18px;
+}
+
+.ssp-log-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ssp-log-item {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px;
+  border-radius: 10px;
+  border-left-width: 4px;
+  border-left-style: solid;
+}
+
+.ssp-log-item.error {
+  background-color: #fef2f2;
+  border-left-color: var(--ssp-error);
+}
+
+.ssp-log-item.info {
+  background-color: #eff6ff;
+  border-left-color: var(--ssp-primary);
+}
+
+.ssp-log-icon.error { color: var(--ssp-error); flex-shrink: 0; margin-top: 2px; }
+.ssp-log-icon.info { color: var(--ssp-primary); flex-shrink: 0; margin-top: 2px; }
+
+.ssp-log-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ssp-on-surface);
+}
+
+.ssp-log-desc {
+  font-size: 12.5px;
+  color: var(--ssp-on-surface-variant);
+  margin-top: 2px;
+}
+
+.ssp-log-time {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ssp-on-surface-variant);
+  text-transform: uppercase;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+/* Performance Metrics */
+.ssp-perf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ssp-perf-item-head {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.ssp-perf-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ssp-on-surface);
+}
+
+.ssp-perf-val {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.ssp-perf-val.primary { color: var(--ssp-primary); }
+.ssp-perf-val.tertiary { color: #047857; }
+.ssp-perf-val.secondary { color: var(--ssp-secondary); }
+
+.ssp-progress-track {
+  width: 100%;
+  background-color: #e2e8f0;
+  height: 8px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ssp-progress-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.ssp-progress-bar-fill.primary { background-color: var(--ssp-primary); }
+.ssp-progress-bar-fill.tertiary { background-color: #10b981; }
+.ssp-progress-bar-fill.secondary { background-color: var(--ssp-secondary); }
+
+.ssp-glow-bg-element {
+  position: absolute;
+  right: -80px;
+  bottom: -80px;
+  width: 256px;
+  height: 256px;
+  background-color: rgba(37, 99, 235, 0.05);
+  border-radius: 50%;
+  filter: blur(48px);
+  pointer-events: none;
+}
+
+/* Action buttons for View & Edit */
+.ssp-action-btn-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ssp-btn-action-view,
+.ssp-btn-action-edit {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 1px solid var(--ssp-outline-variant);
+  background-color: var(--ssp-surface);
+  color: var(--ssp-on-surface-variant);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ssp-btn-action-view:hover {
+  background-color: #eff6ff;
+  color: var(--ssp-primary);
+  border-color: #bfdbfe;
+  transform: translateY(-1px);
+}
+
+.ssp-btn-action-edit:hover {
+  background-color: #fef3c7;
+  color: #d97706;
+  border-color: #fde68a;
+  transform: translateY(-1px);
+}
+
+/* Modal Detail View */
+.ssp-service-detail-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ssp-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background-color: var(--ssp-surface-low);
+  border-radius: 8px;
+  border: 1px solid var(--ssp-outline-variant);
+  font-size: 13.5px;
+}
+
+.ssp-detail-label {
+  color: var(--ssp-on-surface-variant);
+  font-weight: 500;
+}
+
+.ssp-detail-value {
+  color: var(--ssp-on-surface);
+  font-weight: 600;
+}
+
+/* ── Responsive Breakpoints ───────────────────────────────── */
+
+/* Tablet & Mobile (< 1024px) */
+@media (max-width: 1023px) {
+  .ssp-monitor-main-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .ssp-monitor-canvas {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .ssp-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ssp-logs-perf-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Portrait (< 480px) */
+@media (max-width: 479px) {
+  .ssp-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ssp-btn-reload {
+    width: 100%;
+    justify-content: center;
+  }
+}
+

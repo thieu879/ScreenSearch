@@ -1,0 +1,23 @@
+# Test and lint tooling. Kept out of requirements.txt so the production image does not carry it —
+# verified in the built image that a single file shipped pytest, ruff and coverage into the
+# container, which is needless surface area in a public deployment.
+#
+#   pip install -r requirements-dev.txt      # local dev and CI
+#   pip install -r requirements.txt          # what the Dockerfile installs
+#
+# Pinned for the same reason as the runtime deps: these versions are the ones the 90-test suite
+# passes on.
+
+-r requirements.txt
+
+ruff==0.16.1
+pytest==9.1.1
+pytest-asyncio==1.4.0
+pytest-cov==7.1.0
+httpx==0.28.1
+
+# The privacy detector's backend (ultralytics) is deliberately NOT here. It is imported lazily
+# inside `PrivacyDetector._load()`, no test loads a model, and this file is what CI installs — so
+# pinning it here would pull ultralytics, opencv, matplotlib, scipy and pandas into every CI run to
+# support nothing. It lives in experiments/m1/requirements-m1.txt with the rest of the ingest-side
+# research deps, which is also the environment that has the GPU to run it.

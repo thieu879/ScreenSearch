@@ -1,0 +1,24 @@
+{
+  "//": "Why this file exists. Fourteen scripts under scripts/ put their own directories on sys.path at runtime and then import from them - `experiments/m1` for the `scenesearch` research package, `scripts/` for `anonymise`, `_fov`, `promote_artifacts`. A language server does not execute sys.path.insert, so without extraPaths every one of those imports is underlined red while the script runs perfectly. That is not cosmetic: on 2026-08-06 it led to 892 lines of working, tested ingest code being deleted as dead. Adding a path here is cheaper than the next deletion.",
+
+  "venvPath": ".",
+  "venv": ".venv",
+
+  "extraPaths": [
+    "scripts",
+    "experiments/m1"
+  ],
+
+  "exclude": [
+    "**/node_modules",
+    "**/__pycache__",
+    ".venv",
+    "data",
+    "FE"
+  ],
+
+  "//reportMissingImports": "Warning, not error. The ingest and measurement scripts import torch, cv2, ultralytics and the nuScenes devkit, none of which are installed in .venv - they run in C:/Users/Precision/ssv. Those imports are *expected* to be unresolved when the IDE is pointed at the serving environment, and flagging them as errors is what taught everyone to ignore the red.",
+  "reportMissingImports": "warning",
+
+  "typeCheckingMode": "off"
+}

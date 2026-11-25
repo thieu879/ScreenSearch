@@ -1,0 +1,37 @@
+# Daily snapshot of the review database. Paired with scenesearch-backup.timer.
+#
+# The verdicts are the only state on this box that cannot be rebuilt from the repo and the Hub, and
+# until this unit existed nothing copied them anywhere. `docs/deploy.md` § The review database
+# explains the named volume that keeps them across `up -d --build`; a volume is not a backup, and
+# it does not survive `down -v`, a disk fault, or the trial ending.
+#
+#   sudo cp deploy/scenesearch-backup.{service,timer} /etc/systemd/system/
+#   sudo systemctl daemon-reload && sudo systemctl enable --now scenesearch-backup.timer
+#
+# Check it: `systemctl list-timers scenesearch-backup` and `journalctl -u scenesearch-backup`.
+
+[Unit]
+Description=SceneSearch review database backup
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+# EDIT ON INSTALL: this must match the checkout on the box, and it is not the same everywhere.
+# The live box runs from /home/hieuhau2903/P-057; the installed copy of scenesearch.service
+# was corrected there by hand while this file was not, so a fresh `cp` from the repo would
+# reintroduce the wrong path.
+WorkingDirectory=/home/ubuntu/P-057
+# `exec`, not `run`: the snapshot must come from the process that holds the database, using sqlite's
+# online backup API. A second container reading the same file gets a copy that may be mid-write.
+#
+# -T disables the TTY, which systemd has no way to allocate — without it this fails with "the input
+# device is not a TTY" and only when run from the timer, never by hand.
+#
+# REVIEW_DB is already in the container's environment (docker-compose.prod.yml), so the source path
+# comes from the same setting the service itself reads rather than being repeated here.
+ExecStart=/usr/bin/docker compose -f deploy/docker-compose.prod.yml exec -T api \
+    python scripts/ops/backup_reviews.py --out-dir data/backups --keep 14
+
+[Install]
+WantedBy=multi-user.target

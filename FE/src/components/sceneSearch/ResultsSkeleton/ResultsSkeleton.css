@@ -1,0 +1,90 @@
+/* ============================================================
+   Loading placeholder for the results grid.
+   Mirrors ResultCard's geometry so results land without shifting the page.
+   ============================================================ */
+
+.ssp-skeleton-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: ssp-skeleton-fade 1.4s ease-in-out infinite;
+}
+
+.ssp-skeleton-thumb {
+  /* 16:9, the aspect the thumbnails are served at (640 x 360). */
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  background: #eef2f6;
+}
+
+.ssp-skeleton-body {
+  padding: 12px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ssp-skeleton-chips {
+  display: flex;
+  gap: 8px;
+}
+
+.ssp-skeleton-chip {
+  height: 20px;
+  width: 74px;
+  border-radius: 6px;
+  background: #eef2f6;
+}
+
+.ssp-skeleton-chip--wide {
+  width: 118px;
+}
+
+.ssp-skeleton-line {
+  height: 12px;
+  border-radius: 6px;
+  background: #eef2f6;
+}
+
+.ssp-skeleton-line--title {
+  width: 82%;
+  height: 14px;
+}
+
+.ssp-skeleton-line--meta {
+  width: 42%;
+}
+
+@keyframes ssp-skeleton-fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+/* A pulse is decoration, and for a vestibular-sensitive reader it is not a neutral one. The
+   placeholder still communicates "loading" through its shape and `aria-busy` without it. */
+@media (prefers-reduced-motion: reduce) {
+  .ssp-skeleton-card {
+    animation: none;
+  }
+}
+
+/* ── Dark mode ─────────────────────────────────────────────── */
+
+.dark .ssp-skeleton-card {
+  background: #0f172a;
+  border-color: #1e293b;
+}
+
+.dark .ssp-skeleton-thumb,
+.dark .ssp-skeleton-chip,
+.dark .ssp-skeleton-line {
+  background: #1e293b;
+}

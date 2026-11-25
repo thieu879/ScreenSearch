@@ -1,0 +1,24 @@
+# Shell scripts must stay LF — CRLF breaks Git Bash's shebang parsing and
+# broke the AI-log pre-push hook on Windows checkouts (core.autocrlf=true).
+*.sh text eol=lf
+
+# Same rule, extended to everything a Linux host parses rather than a human reads. These are
+# authored on Windows with core.autocrlf=true and consumed on an ARM Ubuntu VM, and CRLF has
+# already cost this repo two hook bugs and a stray `.gitkeep\r`. Each of these fails in a way that
+# is hard to read: Docker treats a trailing \r as part of the command, systemd rejects the unit
+# with a parse error, and Caddy's directive parser breaks on the line ending.
+Dockerfile      text eol=lf
+*.service       text eol=lf
+Caddyfile       text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+Makefile        text eol=lf
+
+# Committed artifacts are binary and must never be line-ending converted — a single "fixed" byte
+# would silently corrupt an embedding matrix or a thumbnail.
+*.npy           binary
+*.jpg           binary
+*.pptx          binary
+*.pdf           binary
+
+* text=auto

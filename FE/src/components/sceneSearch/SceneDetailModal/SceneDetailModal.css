@@ -1,0 +1,186 @@
+.scene-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.scene-detail__preview {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+}
+
+.scene-detail__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.scene-detail__cam-label {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.scene-detail__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.scene-detail__status-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.scene-detail__time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+.scene-detail__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.scene-detail__desc-block {
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.scene-detail__desc-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  margin: 0 0 6px;
+}
+
+.scene-detail__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (min-width: 500px) {
+  .scene-detail__stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.scene-detail__stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.scene-detail__stat-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9CA3AF;
+}
+
+.scene-detail__stat-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: #38BDF8;
+}
+
+/* Source clip — present only on a corpus whose `videos.json` names its footage (Hanoi), never on
+   nuScenes. Styled as a distinct block rather than another stat: it is the one control here that
+   leaves the product, and a link that looks like a metadata row gets clicked by accident. */
+.scene-detail__source {
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(56, 189, 248, 0.06);
+  border: 1px solid rgba(56, 189, 248, 0.22);
+}
+
+.scene-detail__source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #38BDF8;
+  text-decoration: none;
+}
+
+.scene-detail__source-link:hover,
+.scene-detail__source-link:focus-visible {
+  text-decoration: underline;
+}
+
+/* Attribution, not decoration: the Hanoi clips are CC BY and the credit is a licence condition. */
+.scene-detail__source-credit {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: var(--color-text-tertiary, #9CA3AF);
+}
+
+.scene-detail__source-licence {
+  white-space: nowrap;
+}
+
+.scene-detail__source-note {
+  margin: 4px 0 0;
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--color-text-tertiary, #9CA3AF);
+}
+
+/* Redacted moment clip. Present only where one was built — a handful of frames, never a deployed
+   box — so this block simply does not render for almost every result. */
+.scene-detail__moment {
+  padding: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.scene-detail__moment-label {
+  margin: 0 0 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary, #9CA3AF);
+}
+
+.scene-detail__moment-video {
+  width: 100%;
+  max-height: 320px;
+  border-radius: 6px;
+  background: #000;
+  display: block;
+}
+
+/* Labelled by a person, not detected. Styled as a caveat rather than as a result for that reason. */
+.scene-detail__moment-events {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--color-text-tertiary, #9CA3AF);
+}

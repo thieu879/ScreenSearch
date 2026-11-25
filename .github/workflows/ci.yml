@@ -1,0 +1,213 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+# The BTC runners are shared FIFO across every team in the cohort, so a run this repo no longer
+# needs is a run some other team is queued behind. Superseding pushes to the same branch cancel the
+# older run instead of letting it hold a runner to produce a result nobody will read.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-test:
+    # Not `ubuntu-latest`. The org's GitHub-hosted minutes are blocked on a billing failure — from
+    # 2026-08-04 every job was rejected before checkout with "The job was not started because recent
+    # account payments have failed", zero steps run (see run 30898639345). The BTC supplied shared
+    # self-hosted runners instead; jobs from every team enqueue FIFO onto them.
+    #
+    # Set the repo variable RUNNER_LABEL to `ubuntu-latest` to go back to GitHub-hosted without
+    # editing this file, once the org's billing is restored.
+    runs-on: ${{ vars.RUNNER_LABEL || 'self-hosted' }}
+
+    # GitHub's default is 360 minutes. On a runner nobody else can use while we hold it, a job that
+    # hangs on the asset fetch would block the cohort for six hours. This job takes ~3 minutes.
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        # -dev includes -r requirements.txt, plus the tooling this job needs. The Dockerfile
+        # installs the runtime file alone, so the production image carries no test or lint tools.
+        #
+        # **torch comes from the CPU index first, for the same reason the Dockerfile does it.**
+        # On linux/amd64 the default PyPI wheel bundles CUDA — nvidia-cublas, nvidia-cudnn, triton,
+        # cuda-toolkit and a dozen more — for a job that has no GPU and never asks for one. The
+        # Dockerfile has carried a long comment about this since it was written; CI never did, so
+        # every run here installed several gigabytes the image goes out of its way to avoid.
+        #
+        # That was merely wasteful on GitHub-hosted runners with a clean 14 GB per job. It stopped
+        # being merely wasteful on the shared BTC runners: disk persists between jobs and between
+        # teams, and on 2026-08-07 it filled, failing PRs #45 and #46 — both docs-only — with
+        # `OSError: [Errno 28] No space left on device` during this step. A docs change cannot break
+        # a test suite, and the red check sent the reader looking at the wrong diff entirely.
+        #
+        # The pins are read out of requirements.txt rather than repeated here, exactly as the
+        # Dockerfile does it: two literals in two files do not stay equal because a comment asks
+        # them to, and a stale pin here would silently resolve back to the CUDA wheel from PyPI when
+        # `-r requirements-dev.txt` found the conflict. `test -n` guards the grep, because an
+        # unguarded `pip install` with no arguments succeeds and does nothing.
+        run: |
+          TORCH_SPEC="$(grep -E '^(torch|torchvision)==' requirements.txt | tr -d '\r' | tr '\n' ' ')"
+          test -n "${TORCH_SPEC# }" || { echo "no torch pins found in requirements.txt" >&2; exit 1; }
+          pip install --index-url https://download.pytorch.org/whl/cpu ${TORCH_SPEC}
+          pip install -r requirements-dev.txt
+
+      - name: Lint with ruff
+        # scripts/ is in scope too. It was not, and that is how a new file landed there unchecked:
+        # scripts/ops/capture_traces.py went in with #9 and CI never looked at it. The AI-log hooks are
+        # excluded in ruff.toml — see the comment there.
+        run: ruff check src/ tests/ scripts/
+
+      - name: Check formatting
+        # `--check`, never a bare `ruff format`: CI must *report* drift, not silently rewrite files
+        # and pass. Added 2026-08-16 alongside the one-off reformat of 52 files. Until then CI ran
+        # only `ruff check`, so formatting drifted freely — which is what made `make check` unsafe
+        # to run, since its `format` target rewrote in place and turned a two-line commit into a
+        # 24-file diff. Same scope as the lint step above, or the two disagree about what is checked.
+        run: ruff format --check src/ tests/ scripts/
+
+      # The vector matrices (32 MB) and thumbnails (85 MB) are not in git — see .gitignore. The
+      # tests need both: the corpus fixture loads the index, and test_thumbnail_serves_a_real_frame
+      # reads an actual JPEG off disk.
+      #
+      # Keyed on provenance.json, which changes exactly when the corpus does, so a code-only push
+      # restores 117 MB from cache instead of re-downloading it. Without this every CI run would
+      # depend on the HF hub being up and unthrottled — and it does throttle: publishing these
+      # assets returned a 429 on the very next request.
+      - name: Cache corpus assets
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/artifacts/vectors.npy
+            data/artifacts/caption_vectors.npy
+          key: assets-${{ hashFiles('data/artifacts/provenance.json') }}
+
+      # Index from the cache above; thumbnails re-fetched each run, because one tarball costs ~23 s
+      # and caching 6,858 loose files to save that is a worse trade than making the request. The
+      # per-file fetch this replaced took four and a half minutes to earn a 429 (run 30736156566),
+      # which is why it is worth saying that the cheap path is now the correct one rather than
+      # quietly dropping the images: `test_thumbnail_serves_a_real_frame` needs a real JPEG, and it
+      # skips rather than fails when there is none, so a Hub outage degrades CI instead of reddening
+      # it. The `--what thumbs` half is non-fatal in the script for the same reason.
+      - name: Fetch corpus assets
+        run: python scripts/fetch_assets.py --if-missing
+
+      # pytest-cov is already pinned in requirements-dev.txt and has been installed by this job all
+      # along — nothing ever asked it for a number. The rubric wants ≥60% coverage as evidence, and
+      # the only figure on record lived in eval/results/report.md, hand-pasted, four times out of
+      # date by the time anyone checked. Printing it here means the current number is in every run's
+      # log, attached to the commit that produced it.
+      #
+      # No --cov-fail-under yet: see the Makefile `test` target for why the gate is a separate call.
+      - name: Run tests
+        run: pytest tests/ -v --tb=short --cov=src --cov-report=term-missing
+        env:
+          APP_ENV: test
+          OPENAI_API_KEY: test-key
+
+  # The frontend had no CI at all. 7,483 lines of TypeScript merged in #14 and nothing typechecked,
+  # linted or built any of it — the same gap that let scripts/ go unchecked until #13.
+  #
+  # It was not a theoretical gap. Both of these were on main and neither was caught:
+  #   - package-lock.json out of sync with package.json, so `npm ci` failed outright. The frontend
+  #     could not be installed reproducibly by anyone.
+  #   - Toast.tsx exported a hook alongside components, failing react-refresh/only-export-components,
+  #     so `npm run lint` could never pass.
+  # Both are fixed in this PR, which is why this job can land here and be green rather than arriving
+  # red and being ignored.
+  #
+  # Runs on every push rather than only on FE/** changes: `npm ci` is cached and the whole job is
+  # about a minute, and a path filter would let a backend change that alters the API contract break
+  # the frontend build without anyone noticing.
+  frontend:
+    runs-on: ${{ vars.RUNNER_LABEL || 'self-hosted' }}
+
+    timeout-minutes: 15
+
+    defaults:
+      run:
+        working-directory: FE
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          # package.json declares no `engines`, so this is pinned against the toolchain's own
+          # constraints. The tightest is eslint 10 (^20.19.0 || ^22.13.0 || >=24), not Vite 8
+          # (^20.19.0 || >=22.12.0) — "22" resolves to the latest 22.x, which clears both.
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: FE/package-lock.json
+
+      - name: Install dependencies
+        # `ci` not `install`: it installs exactly the lockfile and fails if the two have drifted,
+        # which is the failure this job exists to catch.
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        # Pure-function units only — no DOM, no jsdom, no React renderer. See vitest.config.ts.
+        run: npm test
+
+      - name: Typecheck and build
+        # `build` is `tsc -b && vite build`, so this covers typechecking as well as bundling.
+        run: npm run build
+
+  # Nothing built the Dockerfile, so the file that produces the deployed artifact had no gate at all.
+  # That is not theoretical either: `f36f92a` swapped the image's `npm ci` for `npm install` and the
+  # two jobs above both stayed green, because the `frontend` job runs its *own* `npm ci` on the
+  # runner and never touches the Dockerfile's copy of that instruction. The swap survived two days
+  # and the next thing to exercise it was a deploy.
+  #
+  # **Only the frontend stage is built, and the omission is deliberate rather than lazy.** The full
+  # image downloads ~500 MB of model weights and 117 MB of corpus assets. These runners are shared
+  # FIFO across every team in the cohort and their disk persists between jobs — on 2026-08-07 it
+  # filled and failed two docs-only PRs with `No space left on device`. Paying that on every pull
+  # request, to gate layers that a deploy exercises anyway, would spend other teams' runner time to
+  # buy very little. If the team wants the whole image gated, it belongs on a schedule or on the
+  # release path, not here.
+  #
+  # **`--no-cache` is the point of the job.** The `v1.4` deploy came back with `RUN npm ci` as a
+  # BuildKit cache hit — correct by construction, since the instruction text and the lockfile bytes
+  # are both in the cache key, but it means the restored instruction has still never been *observed*
+  # running against a clean tree. A cached build here would reproduce exactly that blind spot.
+  docker-frontend:
+    runs-on: ${{ vars.RUNNER_LABEL || 'self-hosted' }}
+
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # Fails loudly and early if the shared runner has no daemon, rather than after the checkout
+      # and halfway through a build, with an error about the socket that reads like a build failure.
+      - name: Check the runner can build images
+        run: docker version
+
+      - name: Build the frontend stage from a clean cache
+        run: docker build --target frontend --no-cache --tag p057-frontend-ci:${{ github.sha }} .
+
+      # `if: always()`, because the disk needs reclaiming most when the build failed partway. The
+      # image is tagged with the SHA so concurrent jobs from other branches cannot delete each
+      # other's, and `|| true` keeps a cleanup failure from reddening a build that passed.
+      - name: Reclaim the disk
+        if: always()
+        run: |
+          docker image rm -f p057-frontend-ci:${{ github.sha }} || true
+          docker builder prune --force || true

@@ -1,0 +1,44 @@
+# Serve a corpus staged on the host instead of the index baked into the image.
+#
+# **Why this exists as an override rather than an edit.** `docker-compose.prod.yml` builds an image
+# that fetches its index and its 6,858 thumbnails from the Hub at build time, pinned by
+# `fetch_assets.py:REVISION`. That is the right shape for a corpus the Hub carries — it makes the
+# image self-contained and a rebuild reproducible. It cannot carry the moment clips: they are
+# redacted cuts of CC BY footage that this project deliberately does not publish, so they exist only
+# on a machine somebody put them on.
+#
+# Compose applies files left to right, so switching corpora is which files you name:
+#
+#     docker compose -f docker-compose.prod.yml up -d --build                       # baked corpus
+#     docker compose -f docker-compose.prod.yml -f docker-compose.merged.yml up -d   # staged corpus
+#
+# and reverting is dropping the second `-f`. Nothing in the image changes either way, which is the
+# property worth having three days before a demo: the way back is a shorter command, not a rebuild.
+#
+# **It adds a path, it does not hide one.** `prod.yml` warns against mounting over `/app/data`,
+# because that would hide the baked index and leave the service starting cleanly and answering
+# nothing. This mounts a *separate* directory and points the three env vars at it, so the baked
+# index is still there, untouched, and one `-f` away.
+#
+# **The mount is writable on purpose.** `data/artifacts/.cache/huggingface` is created under the
+# artifacts directory at load time; a read-only mount would turn that into a startup failure for no
+# gain, since the host directory holds nothing that is not reproducible from the merge.
+#
+# What the staged directory must contain — see `docs/deploy.md` § A staged corpus:
+#
+#     <MERGED_DIR>/artifacts/   frames.jsonl, vectors.npy, metadata.jsonl, captions.jsonl,
+#                               caption_vectors.npy, provenance.json, videos.json
+#     <MERGED_DIR>/thumbs/      one JPEG per frame, for EVERY frame in the merge
+#     <MERGED_DIR>/moments/     the redacted clips and moments.json, or absent for none
+#
+# `thumbs/` must be the whole corpus and not only the new half: `THUMBS_DIR` is a single path, so a
+# directory holding one half serves a broken image for every frame of the other.
+
+services:
+  api:
+    volumes:
+      - ${MERGED_DIR:-/opt/scenesearch/merged}:/app/data-merged
+    environment:
+      ARTIFACTS_DIR: /app/data-merged/artifacts
+      THUMBS_DIR: /app/data-merged/thumbs
+      MOMENTS_DIR: /app/data-merged/moments

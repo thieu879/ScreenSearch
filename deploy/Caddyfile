@@ -1,0 +1,33 @@
+# Caddy reverse proxy for SceneSearch.
+#
+# Caddy provisions and renews a Let's Encrypt certificate for {$DOMAIN} automatically, which is the
+# only reason this file is short. The alternative — certbot plus a renewal timer plus an nginx
+# config — is a lot of moving parts for a demo that must stay up for at least seven days after
+# Demo Day without anyone touching it.
+
+{$DOMAIN:scenesearch.duckdns.org} {
+	encode gzip
+
+	# Thumbnails are immutable (frame_id is content-derived), and a results grid requests ten of
+	# them at once. The API already sets a long Cache-Control; this makes sure the proxy honours it
+	# rather than revalidating on every grid render.
+	@thumbs path /api/v1/frames/*/thumb
+	header @thumbs Cache-Control "public, max-age=31536000, immutable"
+
+	reverse_proxy api:8000 {
+		# The first request after a cold start waits on the corpus load and encoder warmup. The
+		# default dial timeout would return 502 during exactly the window a grader is most likely
+		# to be looking at the page.
+		transport http {
+			dial_timeout 10s
+			response_header_timeout 120s
+		}
+	}
+
+	log {
+		output file /data/access.log {
+			roll_size 10MiB
+			roll_keep 5
+		}
+	}
+}

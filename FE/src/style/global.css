@@ -1,0 +1,146 @@
+/* ============================================================
+   Tailwind v4 — Entry Point
+   @import must come FIRST before any other rules.
+   ============================================================ */
+
+@import "tailwindcss";
+@import "../themes.css";
+
+/* Tailwind v4 class-based dark mode */
+@custom-variant dark (&:is(.dark &));
+
+/* ── Global Theme Palette (Harmonious Teal/Sky Light & Space Dark) ── */
+:root {
+    --bg-primary: #f8fafc;        /* Clean Slate 50 background */
+    --bg-secondary: #f1f5f9;      /* Smooth Slate 100 section background */
+    --bg-card: #ffffff;           /* Pure white card surface */
+    --bg-header: rgba(255, 255, 255, 0.95);
+    --text-primary: #0f172a;      /* Pitch Slate 900 for high-contrast headings */
+    --text-secondary: #334155;    /* Dark Slate 700 for high-contrast body text */
+    --text-muted: #64748b;        /* Slate 500 for supporting labels */
+    --border-color: #e2e8f0;      /* Slate 200 crisp borders */
+    --input-bg: #ffffff;
+    --input-border: #cbd5e1;
+    --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+}
+
+html.dark {
+    --bg-primary: #0b0f19;        /* Deep Space Navy background */
+    --bg-secondary: #111827;      /* Dark Navy Gray section background */
+    --bg-card: #161e2e;           /* Rich Navy Card surface */
+    --bg-header: rgba(11, 15, 25, 0.95);
+    --text-primary: #f8fafc;      /* Pure Slate 50 white for headings */
+    --text-secondary: #cbd5e1;    /* Slate 300 for comfortable body text */
+    --text-muted: #94a3b8;        /* Slate 400 for supporting labels */
+    --border-color: rgba(255, 255, 255, 0.1);
+    --input-bg: rgba(255, 255, 255, 0.05);
+    --input-border: rgba(255, 255, 255, 0.15);
+    --shadow-card: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Global resets ─────────────────────────────────────── */
+@layer base {
+    * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+        font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+        box-sizing: border-box;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        font-family: 'Be Vietnam Pro', 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+        background-color: var(--bg-primary);
+        color: var(--text-primary);
+        font-family: 'Be Vietnam Pro', 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: var(--text-primary);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: var(--color-scrollbar-track, #f1f5f9);
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: var(--color-scrollbar-thumb, #cbd5e1);
+        border-radius: 999px;
+    }
+}
+
+/* ── User Pages Layout (No Vertical Sidebar, Full Screen Width Header) ── */
+.ssp-app-layout,
+.ssp-app-container,
+.ssp-history-layout,
+.ssp-export-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+.ssp-app-layout > .ssp-main-wrapper,
+.ssp-app-container > .ssp-main-wrapper,
+.ssp-history-layout > .ssp-main-wrapper,
+.ssp-export-layout > .ssp-main-wrapper {
+    margin-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* ── Admin Pages Layout (Has Vertical Dark Navy Sidebar on Left) ── */
+@media (min-width: 1024px) {
+    .ssp-admin-layout > .ssp-admin-main-wrapper,
+    .ssp-user-layout > .ssp-user-main-wrapper,
+    .ssp-monitor-layout > .ssp-monitor-main-wrapper,
+    .ssp-dataset-layout > .ssp-dataset-main-wrapper {
+        margin-left: 240px !important;
+        width: calc(100% - 240px) !important;
+    }
+}
+
+@media (max-width: 1023px) {
+    .ssp-admin-layout > .ssp-admin-main-wrapper,
+    .ssp-user-layout > .ssp-user-main-wrapper,
+    .ssp-monitor-layout > .ssp-monitor-main-wrapper,
+    .ssp-dataset-layout > .ssp-dataset-main-wrapper {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+}
+
+/* Smooth theme transitions */
+*,
+*::before,
+*::after {
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+        color 0.15s ease, opacity 0.15s ease;
+}
+
+.no-transition,
+.no-transition * {
+    transition: none !important;
+}

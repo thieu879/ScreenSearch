@@ -1,0 +1,725 @@
+/* --- SPLIT LAYOUT & AMBIENT GLOWS --- */
+.ssp-login-split-layout {
+  min-height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  position: relative;
+  background-color: #0b0f19;
+  color: #f8fafc;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Ambient Floating Orbs */
+.ssp-glow-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.ssp-glow-orb.orb-1 {
+  top: -10%;
+  left: -5%;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(22, 140, 137, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+  animation: ssp-orb-float-1 12s ease-in-out infinite alternate;
+}
+
+.ssp-glow-orb.orb-2 {
+  bottom: -15%;
+  right: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, rgba(0, 0, 0, 0) 70%);
+  animation: ssp-orb-float-2 15s ease-in-out infinite alternate;
+}
+
+.ssp-glow-orb.orb-3 {
+  top: 35%;
+  left: 30%;
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.18) 0%, rgba(0, 0, 0, 0) 70%);
+  animation: ssp-orb-float-3 18s ease-in-out infinite alternate;
+}
+
+@keyframes ssp-orb-float-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(60px, 40px) scale(1.1); }
+}
+
+@keyframes ssp-orb-float-2 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-50px, -30px) scale(1.08); }
+}
+
+@keyframes ssp-orb-float-3 {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, -40px) scale(1.15); }
+}
+
+/* --- LEFT COLUMN: HERO SHOWCASE --- */
+.ssp-login-hero-side {
+  flex: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 48px;
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1023px) {
+  .ssp-login-hero-side {
+    display: none;
+  }
+}
+
+.ssp-hero-content-wrap {
+  max-width: 520px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Version Pill Badge */
+.ssp-badge-version {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(22, 140, 137, 0.15);
+  border: 1px solid rgba(22, 140, 137, 0.4);
+  color: #2dd4bf;
+  font-size: 11.5px;
+  font-weight: 700;
+  width: fit-content;
+  box-shadow: 0 0 20px rgba(22, 140, 137, 0.2);
+}
+
+.ssp-sparkle-icon {
+  color: #2dd4bf;
+}
+
+/* Headline */
+.ssp-hero-headline {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.ssp-gradient-text {
+  background: linear-gradient(135deg, #2dd4bf 0%, #38bdf8 50%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ssp-hero-description {
+  font-size: 13.5px;
+  color: #94a3b8;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Metrics Cards Grid */
+.ssp-hero-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.ssp-hero-metric-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.ssp-hero-metric-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.ssp-metric-icon-wrap {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(22, 140, 137, 0.2);
+  color: #2dd4bf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ssp-metric-icon-wrap.green {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.ssp-metric-icon-wrap.blue {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+.ssp-hero-metric-card .ssp-metric-value {
+  font-size: 16px;
+  font-weight: 800;
+  color: #ffffff;
+  overflow-wrap: anywhere;
+}
+
+.ssp-hero-metric-card .ssp-metric-value--text {
+  font-size: 13px;
+  line-height: 1.25;
+}
+
+.ssp-metric-label {
+  font-size: 10.5px;
+  color: #94a3b8;
+  line-height: 1.3;
+  font-weight: 500;
+}
+
+/* Visual Showcase Card */
+.ssp-visual-showcase-card {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+  aspect-ratio: 16 / 9;
+  max-height: 200px;
+}
+
+.ssp-visual-showcase-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ssp-visual-glass-overlay {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ssp-visual-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.ssp-visual-sim-val {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #34d399;
+  background: rgba(5, 150, 105, 0.2);
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+/* --- RIGHT COLUMN: FORM SECTION --- */
+.ssp-login-form-side {
+  flex: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1023px) {
+  .ssp-login-form-side {
+    flex: 1;
+    width: 100%;
+    padding: 20px 16px;
+  }
+}
+
+.ssp-form-card-wrapper {
+  width: 100%;
+  max-width: 420px;
+}
+
+.ssp-login-glass-card {
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 32px 36px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+}
+
+@media (max-width: 480px) {
+  .ssp-login-glass-card {
+    padding: 24px 18px;
+    border-radius: 14px;
+  }
+}
+
+/* Brand Logo Header */
+.ssp-form-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.ssp-brand-logo-ring {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #168c89 0%, #0d9488 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  box-shadow: 0 0 20px rgba(22, 140, 137, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ssp-brand-logo-text {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 1px;
+}
+
+.ssp-form-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.ssp-form-subtitle {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Form Fields */
+.ssp-form-body {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ssp-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ssp-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ssp-field-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #cbd5e1;
+}
+
+.ssp-link-forgot {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #2dd4bf;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  padding: 4px 0;
+}
+
+.ssp-link-forgot:hover {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+
+.ssp-input-input-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.ssp-field-left-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #64748b;
+  pointer-events: none;
+  transition: color 0.2s ease;
+}
+
+.ssp-real-input {
+  width: 100%;
+  padding: 12px 12px 12px 38px;
+  min-height: 44px;
+  background: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.ssp-real-input.has-right-btn {
+  padding-right: 44px;
+}
+
+.ssp-real-input:focus {
+  border-color: #168c89;
+  box-shadow: 0 0 0 3px rgba(22, 140, 137, 0.25);
+  background: rgba(2, 6, 23, 0.85);
+}
+
+.ssp-real-input:focus + .ssp-field-left-icon,
+.ssp-input-input-wrap:focus-within .ssp-field-left-icon {
+  color: #2dd4bf;
+}
+
+.ssp-real-input::placeholder {
+  color: #475569;
+}
+
+.ssp-btn-eye {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  padding: 8px;
+  min-width: 36px;
+  min-height: 36px;
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.ssp-btn-eye:hover {
+  color: #f8fafc;
+}
+
+/* Checkbox Container */
+.ssp-options-flex {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+}
+
+.ssp-checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  min-height: 36px;
+  padding: 4px 0;
+}
+
+.ssp-checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.ssp-custom-checkbox {
+  position: relative;
+  height: 18px;
+  width: 18px;
+  background-color: rgba(2, 6, 23, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  margin-right: 8px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ssp-checkbox-container:hover input ~ .ssp-custom-checkbox {
+  border-color: #2dd4bf;
+}
+
+.ssp-checkbox-container input:checked ~ .ssp-custom-checkbox {
+  background-color: #168c89;
+  border-color: #168c89;
+}
+
+.ssp-custom-checkbox::after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 5px;
+  top: 1.5px;
+  width: 5px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.ssp-checkbox-container input:checked ~ .ssp-custom-checkbox::after {
+  display: block;
+}
+
+.ssp-checkbox-text {
+  font-size: 12px;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* Submit Login Button */
+.ssp-btn-login-submit {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  min-height: 44px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #168c89 0%, #0d9488 100%);
+  cursor: pointer;
+  margin-top: 4px;
+  box-shadow: 0 4px 16px rgba(22, 140, 137, 0.35);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ssp-btn-login-submit:hover:not(:disabled) {
+  background: linear-gradient(135deg, #127270 0%, #0f766e 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(22, 140, 137, 0.5);
+}
+
+.ssp-btn-login-submit:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.ssp-btn-login-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Or Divider */
+.ssp-or-divider {
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  line-height: 0.1em;
+  margin: 18px 0;
+}
+
+.ssp-or-divider span {
+  background: rgba(15, 23, 42, 0.9);
+  padding: 0 12px;
+  color: #64748b;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* Google SSO Button */
+.ssp-btn-google-sso {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  min-height: 44px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ssp-btn-google-sso:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-1px);
+}
+
+.ssp-google-svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Footer Security Badge */
+.ssp-form-security-footer {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10.5px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+/* Register Prompt Link */
+.ssp-register-prompt {
+  margin-top: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #94a3b8;
+  font-weight: 500;
+  width: 100%;
+}
+
+.ssp-link-register {
+  color: #2dd4bf;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.ssp-link-register:hover {
+  color: #38bdf8;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   LIGHT MODE OVERRIDES (html:not(.dark))
+   ============================================================ */
+html:not(.dark) .ssp-login-split-layout {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+html:not(.dark) .ssp-login-glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+html:not(.dark) .ssp-form-title {
+  color: #0f172a;
+}
+
+html:not(.dark) .ssp-form-subtitle {
+  color: #64748b;
+}
+
+html:not(.dark) .ssp-hero-headline {
+  color: #0f172a;
+}
+
+html:not(.dark) .ssp-hero-description {
+  color: #475569;
+}
+
+html:not(.dark) .ssp-hero-metric-card {
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+html:not(.dark) .ssp-hero-metric-card .ssp-metric-value {
+  color: #0f172a;
+}
+
+html:not(.dark) .ssp-field-label {
+  color: #334155;
+}
+
+html:not(.dark) .ssp-real-input {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+html:not(.dark) .ssp-real-input:focus {
+  border-color: #0284c7;
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+}
+
+html:not(.dark) .ssp-btn-eye {
+  color: #64748b;
+}
+
+html:not(.dark) .ssp-checkbox-text {
+  color: #475569;
+}
+
+html:not(.dark) .ssp-register-prompt span,
+html:not(.dark) .ssp-login-prompt-link span {
+  color: #64748b;
+}
+
+html:not(.dark) .ssp-form-security-footer {
+  color: #94a3b8;
+}
+
+html:not(.dark) .ssp-btn-google-login {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .ssp-btn-google-login:hover {
+  background: #e2e8f0 !important;
+}
+

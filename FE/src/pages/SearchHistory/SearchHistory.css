@@ -1,0 +1,491 @@
+/* ============================================================
+   SSP Search History Component — Data Workspace Styling
+   ============================================================ */
+
+.ssp-history-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f7f8;
+}
+
+.ssp-content-container {
+  padding: 24px 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ssp-history-search-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ssp-header-search-wrapper {
+  position: relative;
+  width: 360px;
+  max-width: 100%;
+}
+
+.ssp-header-search-input {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 16px 10px 42px;
+  min-height: 42px;
+  font-size: 14px;
+  width: 100%;
+  color: #18324a;
+  outline: none;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+  transition: all 0.2s ease;
+}
+
+.ssp-header-search-input:focus {
+  border-color: #168c89;
+  box-shadow: 0 0 0 3px rgba(22, 140, 137, 0.15);
+}
+
+.ssp-header-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8c9dae;
+  pointer-events: none;
+}
+
+/* ── Stats Cards Grid ────────────────────────────────────── */
+.ssp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.ssp-stat-card {
+  background-color: #ffffff;
+  padding: 18px 20px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+  transition: all 0.2s ease;
+}
+
+.ssp-stat-card:hover {
+  border-color: #168c89;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(22, 140, 137, 0.1);
+}
+
+.ssp-stat-card:hover .ssp-icon-trend,
+.ssp-stat-card:hover .ssp-icon-timer {
+  color: #168c89;
+}
+
+.ssp-stat-label {
+  font-size: 12px;
+  color: #5a7184;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 6px 0;
+}
+
+.ssp-stat-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ssp-stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #18324a;
+  margin: 0;
+}
+
+.ssp-stat-value--date {
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.ssp-badge-growth {
+  color: #047857;
+  background-color: #e6f4f1;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.ssp-icon-trend {
+  color: #168c89;
+}
+
+.ssp-icon-timer {
+  color: #5a7184;
+}
+
+/* ── History Table Card ──────────────────────────────────── */
+.ssp-table-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.ssp-table-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ssp-table-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #18324a;
+  margin: 0;
+}
+
+.ssp-table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.ssp-btn-outline {
+  padding: 8px 14px;
+  min-height: 38px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #18324a;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.ssp-btn-outline:hover {
+  background-color: #dceff2;
+  color: #168c89;
+  border-color: #a7d7dc;
+}
+
+.ssp-btn-outline.danger {
+  color: #b91c1c;
+  border: 1px solid #fca5a5;
+  background-color: #ffffff;
+}
+
+.ssp-btn-outline.danger:hover {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.ssp-btn-delete-row {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #8c9dae;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+}
+
+.ssp-btn-delete-row:hover {
+  background-color: #fee2e2;
+  color: #ef4444;
+}
+
+.ssp-table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ssp-history-table {
+  width: 100%;
+  min-width: 600px;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.ssp-history-table th {
+  padding: 12px 20px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #5a7184;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  background-color: #f4f7f8;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ssp-history-row {
+  border-bottom: 1px solid #f0f4f8;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.ssp-history-row:hover {
+  background-color: #f4f7f8;
+}
+
+.ssp-history-row td {
+  padding: 14px 20px;
+  vertical-align: middle;
+}
+
+.ssp-keyword-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ssp-search-icon-badge {
+  padding: 6px;
+  border-radius: 6px;
+  background-color: #dceff2;
+  color: #168c89;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ssp-keyword-text {
+  font-size: 14px;
+  font-weight: 650;
+  color: #18324a;
+}
+
+.ssp-filter-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ssp-filter-chip {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background-color: #f4f7f8;
+  color: #5a7184;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+}
+
+.ssp-text-muted {
+  font-size: 13px;
+  color: #5a7184;
+  font-weight: 500;
+}
+
+.ssp-text-bold {
+  font-size: 14px;
+  font-weight: 650;
+  color: #18324a;
+}
+
+/* ── Pagination Footer ───────────────────────────────────── */
+.ssp-table-footer {
+  padding: 14px 20px;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ssp-pagination {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ssp-page-number {
+  min-width: 34px;
+  height: 34px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #18324a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ssp-page-number.active {
+  background-color: #168c89;
+  color: #ffffff;
+  border-color: #168c89;
+}
+
+.ssp-page-number:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ssp-page-number:hover:not(:disabled):not(.active) {
+  background-color: #dceff2;
+  color: #168c89;
+}
+
+/* ── Quick Search FAB ────────────────────────────────────── */
+.ssp-fab {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background-color: #168c89;
+  color: #ffffff;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 4px 12px rgba(22, 140, 137, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  z-index: 50;
+}
+
+.ssp-fab:hover {
+  transform: scale(1.06);
+  background-color: #127471;
+}
+
+/* ── Responsive Breakpoints ───────────────────────────────── */
+@media (max-width: 1023px) {
+  .ssp-content-container {
+    padding: 16px;
+    gap: 16px;
+  }
+  .ssp-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 479px) {
+  .ssp-stats-grid {
+    grid-template-columns: 1fr;
+  }
+  .ssp-header-search-wrapper {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR SEARCH HISTORY PAGE (.dark)
+   ============================================================ */
+.dark .ssp-history-layout {
+  background-color: #0b0f19;
+  color: #f8fafc;
+}
+
+.dark .ssp-header-search-input {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.dark .ssp-stat-card,
+.dark .ssp-table-card,
+.dark .ssp-table-header,
+.dark .ssp-table-footer {
+  background-color: #111726;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dark .ssp-table-header,
+.dark .ssp-table-footer {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .ssp-table-title,
+.dark .ssp-stat-value,
+.dark .ssp-keyword-text,
+.dark .ssp-text-bold,
+.dark .ssp-history-table th,
+.dark .ssp-history-table td {
+  color: #f8fafc;
+}
+
+.dark .ssp-stat-label,
+.dark .ssp-text-muted,
+.dark .ssp-icon-timer {
+  color: #94a3b8;
+}
+
+.dark .ssp-history-table th {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .ssp-history-row {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.dark .ssp-history-row:hover {
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+.dark .ssp-btn-outline,
+.dark .ssp-page-number {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+}
+
+.dark .ssp-btn-outline:hover,
+.dark .ssp-page-number:hover:not(:disabled):not(.active) {
+  background-color: rgba(45, 212, 191, 0.2);
+  color: #2dd4bf;
+  border-color: #2dd4bf;
+}
+
+.dark .ssp-page-number.active {
+  background-color: #14b8a6;
+  color: #ffffff;
+  border-color: #14b8a6;
+}
+
+.dark .ssp-filter-chip {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+}
+
+.dark .ssp-search-icon-badge {
+  background-color: rgba(45, 212, 191, 0.2);
+  color: #2dd4bf;
+}

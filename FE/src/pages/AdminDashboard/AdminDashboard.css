@@ -1,0 +1,398 @@
+.ssp-admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7f8;
+}
+
+.ssp-admin-main-wrapper {
+  background-color: #f4f7f8;
+  margin-left: 240px;
+  width: calc(100% - 240px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (max-width: 1023px) {
+  .ssp-admin-main-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+.ssp-admin-canvas {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Key Metrics Bento Grid */
+.ssp-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.ssp-metric-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.ssp-metric-card:hover {
+  border-color: #168c89;
+  box-shadow: 0 4px 12px rgba(22, 140, 137, 0.12);
+  transform: translateY(-2px);
+}
+
+.ssp-metric-card:active {
+  transform: scale(0.99);
+}
+
+.ssp-metric-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.ssp-metric-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5a7184;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ssp-metric-icon-badge {
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ssp-metric-icon-badge.dataset {
+  background-color: #e6f4f3;
+  color: #168c89;
+}
+
+.ssp-metric-icon-badge.frames {
+  background-color: rgba(90, 113, 132, 0.1);
+  color: #5a7184;
+}
+
+.ssp-metric-icon-badge.embedding {
+  background-color: #e6f4f1;
+  color: #10b981;
+}
+
+.ssp-metric-icon-badge.users {
+  background-color: rgba(100, 116, 139, 0.1);
+  color: #64748b;
+}
+
+.ssp-metric-body {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ssp-metric-val {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.ssp-metric-trend {
+  font-size: 12px;
+  font-weight: 700;
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.ssp-metric-hint {
+  font-size: 12px;
+  color: #5a7184;
+  margin-top: 4px;
+}
+
+/* Two-Column Dashboard Section */
+.ssp-dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+
+/* Indexing Status Table Box */
+.ssp-table-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.ssp-card-top {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ssp-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.ssp-btn-link {
+  background: transparent;
+  border: none;
+  color: #168c89;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.ssp-btn-link:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+.ssp-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ssp-data-table {
+  width: 100%;
+  min-width: 540px;
+  text-align: left;
+  font-size: 14px;
+  border-collapse: collapse;
+}
+
+.ssp-data-table thead {
+  background-color: #f8fafc;
+  color: #5a7184;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ssp-data-table th {
+  padding: 12px 24px;
+}
+
+.ssp-data-table td {
+  padding: 16px 24px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.ssp-data-table tbody tr {
+  transition: background-color 0.2s;
+}
+
+.ssp-data-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.ssp-dataset-name {
+  font-weight: 600;
+  color: #168c89;
+}
+
+.ssp-progress-col {
+  min-width: 140px;
+}
+
+.ssp-progress-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.ssp-progress-track-bg {
+  flex: 1;
+  height: 6px;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.ssp-progress-bar-inner {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.ssp-progress-text {
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* System Resources Box */
+.ssp-resources-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.ssp-resource-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ssp-resource-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.ssp-resource-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5a7184;
+}
+
+.ssp-resource-val {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.ssp-bars-chart {
+  height: 48px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.ssp-bar-col {
+  flex: 1;
+  border-radius: 2px;
+  transition: height 0.3s ease;
+}
+
+/* Footer Section */
+.ssp-dashboard-footer {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #5a7184;
+  font-size: 12px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.ssp-status-pulse-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ssp-pulse-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
+  border-radius: 50%;
+  animation: ssp-pulse-dot 1.5s infinite;
+}
+
+@keyframes ssp-pulse-dot {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.2); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Floating Action Button */
+.ssp-fab-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+}
+
+.ssp-btn-fab {
+  width: 52px;
+  height: 52px;
+  background-color: #168c89;
+  color: #fff;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 4px 14px rgba(22, 140, 137, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.ssp-btn-fab:hover {
+  transform: scale(1.08);
+  background-color: #127270;
+}
+
+.ssp-btn-fab:active {
+  transform: scale(0.95);
+}
+
+/* ── Responsive Breakpoints ───────────────────────────────── */
+
+/* Tablet & Mobile (< 1024px) */
+@media (max-width: 1023px) {
+  .ssp-admin-main-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .ssp-admin-canvas {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .ssp-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ssp-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile Portrait (< 480px) */
+@media (max-width: 479px) {
+  .ssp-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ssp-dashboard-footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

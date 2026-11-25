@@ -1,0 +1,110 @@
+.ssp-app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  background-color: #f4f7f8;
+  color: #18324a;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.ssp-main-wrapper {
+  margin-left: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f4f7f8;
+}
+
+.ssp-main-canvas {
+  padding: 24px 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ssp-results-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.ssp-results-grid--list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── 5 Standard Responsive Breakpoints ─────────────────────── */
+
+/* 1. Large Desktop / Ultrawide (> 1440px) */
+@media (min-width: 1441px) {
+  .ssp-results-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* 2. Standard Desktop / Laptop (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .ssp-results-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* 3. Tablet / iPad (768px - 1024px) */
+@media (max-width: 1024px) {
+  .ssp-main-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .ssp-main-canvas {
+    padding: 20px 24px;
+    gap: 20px;
+  }
+
+  .ssp-results-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* 4. Mobile Landscape / Large Phones (480px - 767px) */
+@media (max-width: 767px) {
+  .ssp-main-canvas {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .ssp-results-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+}
+
+@media (max-width: 479px) {
+  .ssp-main-canvas {
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .ssp-results-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR SEARCH PAGE (.dark)
+   ============================================================ */
+.dark .ssp-app-container,
+.dark .ssp-main-wrapper {
+  background-color: #0b0f19;
+  color: #f8fafc;
+}
+

@@ -1,0 +1,481 @@
+/* ============================================================
+   SSP Export Data Component — Data Workspace Styling
+   ============================================================ */
+
+.ssp-export-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f7f8;
+}
+
+.ssp-export-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .ssp-export-grid {
+    grid-template-columns: 7fr 5fr;
+  }
+}
+
+.ssp-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Card Styles ─────────────────────────────────────────── */
+.ssp-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.ssp-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.ssp-card-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #18324a;
+  margin: 0;
+}
+
+.ssp-count-badge {
+  font-size: 12px;
+  font-weight: 650;
+  background-color: #dceff2;
+  color: #168c89;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid #a7d7dc;
+}
+
+/* ── Format Option Selector ─────────────────────────────── */
+.ssp-format-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.ssp-format-grid--triple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 640px) {
+  .ssp-format-grid--triple {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ssp-format-card {
+  display: flex;
+  flex-direction: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: #ffffff;
+}
+
+.ssp-format-card:hover {
+  background-color: #f4f7f8;
+  border-color: #a7d7dc;
+}
+
+.ssp-format-card.active {
+  border: 2px solid #168c89;
+  background-color: #dceff2;
+  box-shadow: 0 2px 8px rgba(22, 140, 137, 0.15);
+}
+
+.ssp-format-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #f4f7f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5a7184;
+  transition: all 0.2s ease;
+}
+
+.ssp-format-card.active .ssp-format-icon-wrap {
+  background-color: #168c89;
+  color: #ffffff;
+}
+
+.ssp-format-label {
+  font-size: 13.5px;
+  font-weight: 650;
+  color: #18324a;
+}
+
+.ssp-format-card.active .ssp-format-label {
+  color: #168c89;
+  font-weight: 700;
+}
+
+/* ── Form Hints & Groups ─────────────────────────────────── */
+.ssp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  margin-top: 16px;
+}
+
+.ssp-input-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #18324a;
+}
+
+.ssp-form-hint {
+  font-size: 12.5px;
+  color: #5a7184;
+  font-weight: 500;
+  line-height: 1.55;
+  margin: 0 0 14px 0;
+}
+
+/* ── Export CTA Button ────────────────────────────────────── */
+.ssp-btn-export-main {
+  width: 100%;
+  background-color: #168c89;
+  color: #ffffff;
+  padding: 14px 20px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(22, 140, 137, 0.2);
+  transition: all 0.2s ease;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.ssp-btn-export-main:hover:not([aria-disabled='true']) {
+  background-color: #127471;
+  box-shadow: 0 4px 12px rgba(22, 140, 137, 0.3);
+}
+
+.ssp-btn-export-main[aria-disabled='true'] {
+  background-color: #cbd5e1;
+  color: #64748b;
+  opacity: 0.9;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* ── Schema Explanation Panel (Light Slate / White with Teal Header) ── */
+.ssp-schema-panel {
+  background-color: #ffffff;
+  color: #18324a;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.ssp-schema-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ssp-schema-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #18324a;
+  margin: 0;
+}
+
+.ssp-schema-tag {
+  font-size: 11px;
+  font-weight: 700;
+  color: #168c89;
+  background-color: #dceff2;
+  padding: 3px 10px;
+  border-radius: 6px;
+}
+
+.ssp-meta-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ssp-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background-color: #f4f7f8;
+  border: 1px solid #f0f4f8;
+}
+
+.ssp-meta-key {
+  color: #168c89;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  font-family: monospace;
+}
+
+.ssp-meta-value {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #5a7184;
+}
+
+.ssp-security-note {
+  margin-top: 18px;
+  background-color: #f4f7f8;
+  border-radius: 8px;
+  padding: 14px;
+  border: 1px solid #e2e8f0;
+}
+
+.ssp-security-text {
+  font-size: 12px;
+  color: #5a7184;
+  font-weight: 500;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ── Export Stats Header Cards ────────────────────────────── */
+.ssp-export-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.ssp-export-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 8px;
+  border-radius: 10px;
+  background-color: #f4f7f8;
+  border: 1px solid #e2e8f0;
+}
+
+.ssp-export-stat-value {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1;
+  color: #18324a;
+}
+
+.ssp-stat-approved {
+  color: #047857;
+}
+
+.ssp-stat-rejected {
+  color: #b91c1c;
+}
+
+.ssp-export-stat-label {
+  font-size: 11px;
+  font-weight: 650;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #5a7184;
+}
+
+.ssp-export-notice {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 8px;
+  background-color: #fef3c7;
+  border: 1px solid #f59e0b;
+  font-size: 13px;
+  font-weight: 500;
+  color: #b45309;
+  margin-bottom: 16px;
+}
+
+.ssp-format-grid--pair {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 6px;
+}
+
+@media (max-width: 639px) {
+  .ssp-export-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ssp-format-grid {
+    grid-template-columns: 1fr;
+  }
+  .ssp-meta-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}
+
+/* ============================================================
+   LIGHT MODE HIGH CONTRAST FOR EXPORT DATA PAGE (html:not(.dark))
+   ============================================================ */
+html:not(.dark) .ssp-schema-panel,
+html:not(.dark) .ssp-card {
+  background-color: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05);
+}
+
+html:not(.dark) .ssp-schema-title,
+html:not(.dark) .ssp-card-title,
+html:not(.dark) .ssp-format-label,
+html:not(.dark) .ssp-input-label,
+html:not(.dark) .ssp-export-stat-value {
+  color: #020617;
+  font-weight: 800;
+}
+
+html:not(.dark) .ssp-meta-value,
+html:not(.dark) .ssp-form-hint,
+html:not(.dark) .ssp-security-text,
+html:not(.dark) .ssp-export-stat-label {
+  color: #334155;
+  font-weight: 500;
+}
+
+html:not(.dark) .ssp-meta-row,
+html:not(.dark) .ssp-export-stat,
+html:not(.dark) .ssp-security-note {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR EXPORT DATA PAGE (.dark)
+   ============================================================ */
+.dark .ssp-export-layout {
+  background-color: #0b0f19;
+  color: #f8fafc;
+}
+
+.dark .ssp-card,
+.dark .ssp-schema-panel {
+  background-color: #111726;
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dark .ssp-card-title,
+.dark .ssp-schema-title,
+.dark .ssp-stat-value,
+.dark .ssp-export-stat-value,
+.dark .ssp-format-title,
+.dark .ssp-format-label,
+.dark .ssp-input-label {
+  color: #f8fafc;
+}
+
+.dark .ssp-stat-label,
+.dark .ssp-export-stat-label,
+.dark .ssp-meta-value,
+.dark .ssp-security-text,
+.dark .ssp-format-desc,
+.dark .ssp-form-hint {
+  color: #cbd5e1;
+}
+
+.dark .ssp-meta-key {
+  color: #2dd4bf;
+}
+
+.dark .ssp-stat-box,
+.dark .ssp-export-stat,
+.dark .ssp-meta-row,
+.dark .ssp-security-note,
+.dark .ssp-format-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+}
+
+.dark .ssp-format-icon-wrap {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.dark .ssp-format-card:hover {
+  border-color: #2dd4bf;
+  background-color: rgba(45, 212, 191, 0.15);
+}
+
+.dark .ssp-format-card.active,
+.dark .ssp-format-card.selected {
+  border-color: #2dd4bf;
+  background-color: rgba(45, 212, 191, 0.2);
+}
+
+.dark .ssp-format-card.active .ssp-format-label,
+.dark .ssp-format-card.selected .ssp-format-label {
+  color: #2dd4bf;
+}
+
+.dark .ssp-format-card.active .ssp-format-icon-wrap,
+.dark .ssp-format-card.selected .ssp-format-icon-wrap {
+  background-color: #14b8a6;
+  color: #ffffff;
+}
+
+.dark .ssp-schema-tag {
+  background-color: rgba(45, 212, 191, 0.2);
+  color: #2dd4bf;
+}
+
+.dark .ssp-export-notice {
+  background-color: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.4);
+  color: #fbbf24;
+}
+
+.dark .ssp-stat-approved {
+  color: #34d399;
+}
+
+.dark .ssp-stat-rejected {
+  color: #f87171;
+}
+
+.dark .ssp-btn-export-main[aria-disabled='true'] {
+  background-color: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #94a3b8;
+  opacity: 1;
+}

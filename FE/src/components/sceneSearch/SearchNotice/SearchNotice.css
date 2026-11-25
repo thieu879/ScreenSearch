@@ -1,0 +1,100 @@
+/* ============================================================
+   SSP Search Notice Component — Soft Amber Light Yellow Alert
+   ============================================================ */
+
+.search-notice {
+  display: flex;
+  gap: 14px;
+  padding: 14px 18px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.search-notice__icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  padding-top: 2px;
+}
+
+.search-notice__heading {
+  margin: 0 0 4px;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.4;
+}
+
+.search-notice__message {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* ── CAVEAT (Soft Light Yellow Warning Banner) ─────────────── */
+.search-notice--caveat {
+  border: 1px solid #f59e0b;
+  background-color: #fef3c7;
+}
+
+.search-notice--caveat .search-notice__icon,
+.search-notice--caveat .search-notice__heading {
+  color: #b45309 !important;
+}
+
+.search-notice--caveat .search-notice__message {
+  color: #92400e !important;
+}
+
+/* ── EMPTY & OUT OF SCOPE (Muted Info Banner) ──────────────── */
+.search-notice--empty,
+.search-notice--outOfScope {
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+}
+
+.search-notice--empty .search-notice__icon,
+.search-notice--empty .search-notice__heading,
+.search-notice--outOfScope .search-notice__icon,
+.search-notice--outOfScope .search-notice__heading {
+  color: #18324a !important;
+}
+
+.search-notice--empty .search-notice__message,
+.search-notice--outOfScope .search-notice__message {
+  color: #5a7184 !important;
+}
+
+/* ── ERROR (Muted Red Banner) ─────────────────────────────── */
+.search-notice--error {
+  border: 1px solid #fca5a5;
+  background-color: #fee2e2;
+}
+
+.search-notice--error .search-notice__icon,
+.search-notice--error .search-notice__heading {
+  color: #b91c1c !important;
+}
+
+.search-notice--error .search-notice__message {
+  color: #991b1b !important;
+}
+
+/* Dark Mode Overrides for SearchNotice */
+.dark .search-notice--empty,
+.dark .search-notice--outOfScope {
+  border-color: rgba(255, 255, 255, 0.12);
+  background-color: #161e2e;
+}
+
+.dark .search-notice--empty .search-notice__heading,
+.dark .search-notice--outOfScope .search-notice__heading {
+  color: #f8fafc !important;
+}
+
+.dark .search-notice--empty .search-notice__message,
+.dark .search-notice--outOfScope .search-notice__message {
+  color: #cbd5e1 !important;
+}

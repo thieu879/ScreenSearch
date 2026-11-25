@@ -1,0 +1,118 @@
+/* ============================================================
+   SSP ReviewBar Component — Data Workspace Styling
+   ============================================================ */
+
+.review-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.review-bar__counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: baseline;
+}
+
+.review-bar__here {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #18324a;
+}
+
+.review-bar__totals {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  font-size: 12px;
+  color: #5a7184;
+}
+
+.review-bar__stat {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  font-weight: 600;
+}
+
+.review-bar__stat--approved {
+  color: #047857;
+}
+
+.review-bar__stat--rejected {
+  color: #b91c1c;
+}
+
+.review-bar__actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.review-bar__export {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 6px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background-color: #f4f7f8;
+  color: #18324a;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.review-bar__export:hover {
+  background-color: #dceff2;
+  color: #168c89;
+  border-color: #a7d7dc;
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR REVIEW BAR (.dark)
+   ============================================================ */
+.dark .review-bar {
+  background-color: #111726;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.dark .review-bar__here {
+  color: #f8fafc;
+}
+
+.dark .review-bar__totals {
+  color: #cbd5e1;
+}
+
+.dark .review-bar__stat--approved {
+  color: #34d399;
+}
+
+.dark .review-bar__stat--rejected {
+  color: #f87171;
+}
+
+.dark .review-bar__export {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+}
+
+.dark .review-bar__export:hover {
+  background-color: rgba(45, 212, 191, 0.2);
+  color: #2dd4bf;
+  border-color: #2dd4bf;
+}

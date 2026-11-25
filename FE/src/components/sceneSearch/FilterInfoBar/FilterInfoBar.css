@@ -1,0 +1,189 @@
+/* ============================================================
+   SSP Filter Info Bar Component — Data Workspace Teal Theme
+   ============================================================ */
+
+.ssp-filter-info-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 13px;
+  color: #5a7184;
+  padding: 4px 0;
+  flex-wrap: wrap;
+}
+
+.ssp-results-count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 650;
+  color: #18324a;
+}
+
+.ssp-info-icon {
+  color: #168c89;
+}
+
+.ssp-divider-v {
+  width: 1px;
+  height: 16px;
+  background-color: #e2e8f0;
+}
+
+.ssp-filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Date Filter Styling */
+.ssp-date-filter-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ssp-date-label {
+  font-size: 12px;
+  font-weight: 650;
+  color: #18324a;
+  white-space: nowrap;
+}
+
+.ssp-date-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 4px 10px;
+  gap: 6px;
+  box-shadow: 0 1px 2px rgba(24, 50, 74, 0.04);
+  transition: all 0.2s ease;
+}
+
+.ssp-date-input-container:focus-within {
+  border-color: #168c89;
+  box-shadow: 0 0 0 3px rgba(22, 140, 137, 0.15);
+}
+
+.ssp-date-icon {
+  color: #5a7184;
+  flex-shrink: 0;
+}
+
+.ssp-date-input {
+  background: transparent;
+  border: none;
+  color: #18324a;
+  font-size: 12.5px;
+  font-weight: 500;
+  outline: none;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.ssp-date-clear-btn {
+  background: #f4f7f8;
+  border: none;
+  color: #5a7184;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.2s ease;
+}
+
+.ssp-date-clear-btn:hover {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+/* View Mode Switcher Grid vs List */
+.ssp-view-toggle-group {
+  display: flex;
+  align-items: center;
+  background-color: #f4f7f8;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.ssp-view-toggle-btn {
+  background: transparent;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #5a7184;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.ssp-view-toggle-btn:hover {
+  color: #18324a;
+}
+
+.ssp-view-toggle-btn.active {
+  background-color: #168c89;
+  color: #ffffff;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(22, 140, 137, 0.2);
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR FILTER INFO BAR (.dark)
+   ============================================================ */
+.dark .ssp-results-count,
+.dark .ssp-date-label {
+  color: #f8fafc;
+}
+
+.dark .ssp-filter-info-bar {
+  color: #cbd5e1;
+}
+
+.dark .ssp-date-input-container {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.dark .ssp-date-input {
+  color: #ffffff;
+}
+
+.dark .ssp-date-icon {
+  color: #94a3b8;
+}
+
+.dark .ssp-view-toggle-group {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.dark .ssp-view-toggle-btn {
+  color: #94a3b8;
+}
+
+.dark .ssp-view-toggle-btn:hover {
+  color: #ffffff;
+}
+
+.dark .ssp-view-toggle-btn.active {
+  background-color: #14b8a6;
+  color: #ffffff;
+}
+
+.dark .ssp-divider-v {
+  background-color: rgba(255, 255, 255, 0.1);
+}

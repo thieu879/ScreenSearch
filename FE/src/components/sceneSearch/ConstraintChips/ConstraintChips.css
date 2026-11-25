@@ -1,0 +1,46 @@
+/* ============================================================
+   SSP Constraint Chips Component — Data Workspace Teal Theme
+   ============================================================ */
+
+.constraint-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.constraint-chips__label {
+  font-size: 13px;
+  font-weight: 650;
+  color: #18324a;
+  letter-spacing: 0.01em;
+}
+
+.constraint-chips__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.constraint-chips__list .badge-info,
+.constraint-chips__list [class*="badge"] {
+  background-color: #dceff2;
+  color: #168c89;
+  border: 1px solid #a7d7dc;
+  font-weight: 600;
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR CONSTRAINT CHIPS (.dark)
+   ============================================================ */
+.dark .constraint-chips__label {
+  color: #f8fafc;
+}
+
+.dark .constraint-chips__list .badge-info,
+.dark .constraint-chips__list [class*="badge"] {
+  background-color: rgba(45, 212, 191, 0.18);
+  color: #2dd4bf;
+  border-color: rgba(45, 212, 191, 0.35);
+}

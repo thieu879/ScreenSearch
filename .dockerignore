@@ -1,0 +1,66 @@
+.git
+.gitignore
+.env
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.ruff_cache
+docs/
+presentation/
+eval/
+*.md
+!requirements.txt
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Research, not product. `experiments/` holds the M1/M2 packages plus their cached embeddings and
+# per-experiment outputs; the running service reads none of it — everything it needs was promoted
+# into data/artifacts/ by scripts/promote_artifacts.py. Excluding it keeps the build context small
+# and makes the ingest/query separation physical rather than merely intended.
+experiments/
+scripts/
+# ...except the one script the image genuinely runs. The build pulls the index and thumbnails from
+# the dataset repo, and re-implementing that as an inline `python -c` would be a second copy of
+# logic that already has to exist for local development.
+!scripts/fetch_assets.py
+tests/
+pytest.ini
+
+# Frontend build inputs and outputs. The image gets `FE/dist` from the node stage, never from the
+# host: node_modules is ~200 MB of build context that also lands in the runtime image via
+# `COPY . .`, and a locally-built dist/ would be a stale artifact silently overriding the one this
+# build produced. Sources are still copied — the node stage needs them.
+FE/node_modules/
+FE/dist/
+
+# The index and the thumbnails come from the dataset repo in a dedicated build step, never from the
+# host. A developer who has run scripts/fetch_assets.py has 117 MB sitting in these paths, and
+# `COPY . .` would bake that local copy into the image — silently overriding the pull with whatever
+# happens to be on one machine, which is the same stale-artifact trap FE/dist is excluded for above.
+# The four small artifacts beside them are committed and DO belong in the image, so this excludes
+# the two matrices by name rather than the whole directory.
+# The ingest working directories. Neither is in git, so a CI checkout has neither and this changes
+# nothing there — but a developer's machine has both, and `docker build` sends the context before it
+# reads a single instruction. Measured 2026-08-20: the tracked context is 14 MB, while these two add
+# **1.09 GB** (staging 177 MB, extracted keyframes 909 MB) to every local build of an image that
+# never reads them. `data/artifacts/*.jsonl` deliberately stays: the image needs it.
+data/staging/
+data/extracted_keyframes/
+data/thumbs/
+data/thumbs.tar
+data/artifacts/vectors.npy
+data/artifacts/caption_vectors.npy
+# huggingface_hub's resume/etag bookkeeping, written beside whatever it downloads. Harmless but it
+# is one machine's download state, and it has no business in a published image.
+data/artifacts/.cache/
+data/.cache/
+
+# Local tooling and logs that must never reach a published image.
+.ai-log/
+.agents/
+.claude/
+.github/
+data/chroma/
+*.log

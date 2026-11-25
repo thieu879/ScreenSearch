@@ -1,0 +1,711 @@
+/* ============================================================
+   SSP Scene/Frame Detail Page — Data Workspace Theme Styling
+   ============================================================ */
+
+/* --- LAYOUT STRUCTURE --- */
+.ssp-app-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7f8;
+  color: #18324a;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.ssp-main-wrapper {
+  margin-left: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Header Bar */
+.ssp-top-header {
+  height: 64px;
+  padding: 0 28px;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.ssp-btn-back {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 8px 18px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #18324a;
+  font-size: 13px;
+  font-weight: 650;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+  transition: all 0.2s ease;
+}
+
+.ssp-btn-back:hover {
+  background-color: #dceff2;
+  color: #168c89;
+  border-color: #a7d7dc;
+  transform: translateX(-2px);
+}
+
+.ssp-user-area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ssp-user-info {
+  text-align: right;
+}
+
+.ssp-user-name {
+  font-size: 13px;
+  font-weight: 650;
+  color: #18324a;
+  margin: 0;
+}
+
+.ssp-user-role {
+  font-size: 11px;
+  color: #168c89;
+  margin: 2px 0 0 0;
+  font-weight: 600;
+}
+
+.ssp-user-avatar-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #dceff2;
+  padding: 2px;
+}
+
+.ssp-user-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Content Canvas */
+.ssp-content-canvas {
+  padding: 24px 32px;
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+/* Section Title & Pagination */
+.ssp-scene-header {
+  grid-column: span 12;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 4px;
+}
+
+.ssp-scene-title-group h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #18324a;
+  margin: 0;
+}
+
+.ssp-scene-title-group p {
+  color: #5a7184;
+  font-size: 13px;
+  margin: 4px 0 0 0;
+  font-weight: 500;
+}
+
+.ssp-pagination-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ssp-page-stepper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid #e2e8f0;
+  font-size: 13px;
+  font-weight: 650;
+  color: #18324a;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.ssp-btn-step {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #5a7184;
+  border-radius: 50%;
+  padding: 2px;
+  transition: all 0.2s ease;
+}
+
+.ssp-btn-step:hover:not(:disabled) {
+  color: #168c89;
+  background-color: #dceff2;
+}
+
+.ssp-btn-step:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Left Column: Media Player & Analysis */
+.ssp-left-col {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .ssp-left-col {
+    grid-column: span 8;
+  }
+}
+
+/* Frame Image Container */
+.ssp-frame-card {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background-color: #18324a;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(24, 50, 74, 0.08);
+}
+
+.ssp-frame-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ssp-frame-camera-badge {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: rgba(24, 50, 74, 0.85);
+  backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ssp-glass-metrics {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 1px solid #dceff2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  box-shadow: 0 4px 12px rgba(24, 50, 74, 0.08);
+}
+
+.ssp-glass-metrics-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #168c89;
+}
+
+.ssp-glass-metrics-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #18324a;
+}
+
+.ssp-progress-bar-fill {
+  width: 35%;
+  height: 100%;
+  background-color: #168c89;
+  border-radius: 999px;
+}
+
+.ssp-time-code {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Analysis Box */
+.ssp-analysis-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.ssp-analysis-title {
+  font-size: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #168c89;
+}
+
+.ssp-analysis-desc {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  color: #18324a;
+  background-color: #f4f7f8;
+  padding: 14px 18px;
+  border-radius: 10px;
+  line-height: 1.6;
+  border: 1px solid #e2e8f0;
+  margin: 0;
+}
+
+/* Right Column: Actions & Metadata */
+.ssp-right-col {
+  grid-column: span 12;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 1024px) {
+  .ssp-right-col {
+    grid-column: span 4;
+  }
+}
+
+/* Actions Group */
+.ssp-action-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ssp-btn-main-action {
+  width: 100%;
+  background-color: #168c89;
+  color: #ffffff;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(22, 140, 137, 0.2);
+  transition: all 0.2s ease;
+}
+
+.ssp-btn-main-action:hover {
+  background-color: #127471;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(22, 140, 137, 0.3);
+}
+
+/* Metadata Card */
+.ssp-meta-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(24, 50, 74, 0.04);
+}
+
+.ssp-meta-card-header {
+  padding: 14px 18px;
+  background-color: #f4f7f8;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ssp-meta-card-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5a7184;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.ssp-meta-list {
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ssp-meta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f0f4f8;
+}
+
+.ssp-meta-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.ssp-meta-key {
+  font-size: 13px;
+  color: #5a7184;
+  font-weight: 600;
+}
+
+.ssp-meta-val {
+  font-size: 13px;
+  font-weight: 700;
+  color: #18324a;
+}
+
+.ssp-meta-highlight {
+  color: #168c89;
+}
+
+/* Tag Cloud Box */
+.ssp-tag-cloud-card {
+  background-color: #ffffff;
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.ssp-tag-cloud-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #5a7184;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin: 0 0 12px 0;
+}
+
+.ssp-tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ssp-chip-tag {
+  padding: 5px 14px;
+  background-color: #f4f7f8;
+  color: #18324a;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.ssp-chip-tag:hover {
+  background-color: #dceff2;
+  color: #168c89;
+  border-color: #a7d7dc;
+}
+
+.ssp-user-avatar-initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #168c89;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.ssp-detail-review {
+  display: flex;
+  justify-content: stretch;
+}
+
+.ssp-detail-review-note {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #5a7184;
+}
+
+.ssp-detail-empty {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 64px 24px;
+  text-align: center;
+  color: #5a7184;
+}
+
+.ssp-detail-empty h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #18324a;
+}
+
+.ssp-detail-empty p {
+  margin: 0;
+  max-width: 460px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.ssp-detail-empty .ssp-btn-main-action {
+  margin-top: 8px;
+  max-width: 240px;
+}
+
+.ssp-meta-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  word-break: break-all;
+  text-align: right;
+}
+
+/* ── Responsive Breakpoints ───────────────────────────────── */
+@media (max-width: 1023px) {
+  .ssp-main-wrapper {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .ssp-top-header {
+    padding: 0 16px;
+  }
+
+  .ssp-content-canvas {
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .ssp-scene-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 479px) {
+  .ssp-user-info {
+    display: none;
+  }
+
+  .ssp-btn-back span {
+    display: none;
+  }
+
+  .ssp-scene-title-group h2 {
+    font-size: 18px;
+  }
+}
+
+/* ============================================================
+   DARK MODE OVERRIDES FOR SCENE DETAIL PAGE (.dark)
+   ============================================================ */
+.dark .ssp-app-layout {
+  background-color: #0b0f19;
+  color: #f8fafc;
+}
+
+.dark .ssp-top-header {
+  background-color: #0b0f19;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  color: #f8fafc;
+}
+
+.dark .ssp-btn-back {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+}
+
+.dark .ssp-btn-back:hover {
+  background-color: rgba(45, 212, 191, 0.2);
+  color: #2dd4bf;
+  border-color: #2dd4bf;
+}
+
+.dark .ssp-user-name,
+.dark .ssp-scene-title-group h2 {
+  color: #f8fafc;
+}
+
+.dark .ssp-scene-title-group p {
+  color: #94a3b8;
+}
+
+.dark .ssp-page-stepper {
+  background-color: #111726;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #f8fafc;
+}
+
+.dark .ssp-btn-step {
+  color: #94a3b8;
+}
+
+.dark .ssp-btn-step:hover:not(:disabled) {
+  color: #2dd4bf;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dark .ssp-frame-card {
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.dark .ssp-glass-metrics {
+  background: rgba(17, 23, 38, 0.9);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.dark .ssp-glass-metrics-value {
+  color: #f8fafc;
+}
+
+.dark .ssp-analysis-card,
+.dark .ssp-meta-card,
+.dark .ssp-tag-cloud-card,
+/* Added to this list rather than given a rule of its own: the moment card sits directly beside
+   these in the same column, so a separate rule is a second place for the same value to drift. It
+   was missing entirely and stayed `--color-surface`'s `#fff` fallback in dark mode — a white slab
+   under a black video. */
+.dark .ssp-moment-card {
+  background-color: #111726;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dark .ssp-analysis-desc {
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+}
+
+.dark .ssp-meta-card-header {
+  background-color: rgba(255, 255, 255, 0.03);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.dark .ssp-meta-card-title,
+.dark .ssp-meta-key,
+.dark .ssp-tag-cloud-title,
+.dark .ssp-detail-review-note {
+  color: #94a3b8;
+}
+
+.dark .ssp-meta-val {
+  color: #f8fafc;
+}
+
+.dark .ssp-meta-item {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.dark .ssp-chip-tag {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #cbd5e1;
+}
+
+.dark .ssp-chip-tag:hover {
+  background-color: rgba(45, 212, 191, 0.2);
+  color: #2dd4bf;
+  border-color: #2dd4bf;
+}
+
+/* The moment clip and the link to its source. Both are absent on nuScenes and on any frame no clip
+   was cut for, so the page must read correctly without them — they are appended blocks, never a
+   column the layout depends on. */
+.ssp-moment-card {
+  margin-top: 1rem;
+  padding: 0.9rem;
+  border-radius: 0.75rem;
+  background: var(--color-surface, #fff);
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+.ssp-source-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 0.6rem 0 0;
+  font-size: 0.85rem;
+}
+
+.ssp-source-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--color-primary, #2563eb);
+  text-decoration: none;
+}
+
+.ssp-source-link a:hover {
+  text-decoration: underline;
+}
+
+.ssp-source-credit {
+  color: var(--color-text-secondary, #64748b);
+  font-size: 0.78rem;
+}
+
+/* The source link and its CC BY credit had no dark rules either, and both failed contrast on the
+   dark ground: #2563eb measures 3.46:1 on #111726 and #64748b 3.76:1, where AA wants 4.5:1
+   for body text; the replacements are 9.61:1 and 6.97:1. #2dd4bf is the accent this file already uses for dark links (`.ssp-btn-back:hover`)
+   and #94a3b8 is its dark secondary text (`.ssp-scene-title-group p`).
+   **The credit is not decoration** — CC BY requires the uploader and licence to be shown, so it
+   failing to be readable is a licence problem, not only a styling one. */
+.dark .ssp-source-link a {
+  color: #2dd4bf;
+}
+
+.dark .ssp-source-credit {
+  color: #94a3b8;
+}

@@ -1,0 +1,78 @@
+/* ── Checkbox Label ─────────────────────────────────────── */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+  user-select: none;
+}
+
+.checkbox-label:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.checkbox-label--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Hide native input ──────────────────────────────────── */
+.checkbox-wrapper {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* ── Custom box ─────────────────────────────────────────── */
+.checkbox-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.18s ease, border-color 0.18s ease, transform 0.15s ease, box-shadow 0.18s ease;
+}
+
+.checkbox-box--checked {
+  background: #2563EB;
+  border-color: #2563EB;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+  transform: scale(1.05);
+}
+
+/* ── SVG check animation ────────────────────────────────── */
+.checkbox-box svg {
+  animation: check-pop 0.2s ease;
+}
+
+@keyframes check-pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Label text ─────────────────────────────────────────── */
+.checkbox-text {
+  font-size: 13px;
+  color: #9CA3AF;
+  transition: color 0.15s ease;
+}
+
+.checkbox-text--checked {
+  color: #F3F4F6;
+  font-weight: 500;
+}
